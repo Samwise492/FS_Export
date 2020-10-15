@@ -228,27 +228,6 @@ public class Player : MonoBehaviour
             speed *= bonusForce;
             StartCoroutine(ForceBoost());
         }
-        
-        /*if (buffReciever.recievedBuff.type == BuffType.Damage)
-        {
-            isBuffedDamage = true;           
-        }
-
-        if (buffReciever.recievedBuff.type == BuffType.Health)
-        {
-            Health.CurrentHealth += buffReciever.recievedBuff.bonus; 
-        }*/
-
-        /*if (buffReciever.recievedBuff.type == BuffType.Force)
-        {
-            speed *= bonusForce;
-            StartCoroutine(ForceBoost());
-        }
-
-        if (isBuffedForce)
-        {
-            
-        }*/
 
     }
 
