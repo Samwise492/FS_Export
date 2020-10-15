@@ -228,7 +228,10 @@ public class Player : MonoBehaviour
             speed *= bonusForce;
             StartCoroutine(ForceBoost());
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> test
     }
 
     private Shell GetShellFromPool() //вытаскиваем снаряд из пула снарядов
