@@ -32,20 +32,18 @@ public class TriggerDamage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject == parent)
-            return; //выходим из метода не позволяя выполнять следующие строчки
+            return; // exit from method. It doesn't allow to do other strings of code
          
-        if (GameManager.Instance.healthContainer.ContainsKey(col.gameObject)) //если контейнер в GameManager имеет ключ, равный объекту, с которым мы столкнулись
-                                                                              //то есть есть ли у объекта скрипта Health
+        if (GameManager.Instance.healthContainer.ContainsKey(col.gameObject))
         {
-            var health = GameManager.Instance.healthContainer[col.gameObject]; //получаем в переменную по ключу словаря компонент Health, ведь именно он записался в GameManager
+            var health = GameManager.Instance.healthContainer[col.gameObject];
             health.TakeHit(Damage);
         }
         if (isDestroyingAfterCollision)
         {
-            if (destroyer == null) //если destroyer не сработал
+            if (destroyer == null) // if destroyer didn't work
                 Destroy(gameObject);
-            else destroyer.Destroy(gameObject); //далем уничтожение универсальным, не привязанным к методам юнити. Такое уничтожение нужно для разных типов объектов,
-                                                //которые могут иметь своё уничтожение
+            else destroyer.Destroy(gameObject); // make destroying unique, it isn't tie to Unity methods. Such destroying is needed for various type of objects, which can have their own destroying
         }       
     }
 }

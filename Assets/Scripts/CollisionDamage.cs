@@ -27,25 +27,24 @@ public class CollisionDamage : MonoBehaviour
     [SerializeField] private Animator animator;
     private Health health;
 
-    private void OnCollisionEnter2D(Collision2D col) //отвечает за тот момент, когда только соприкоснулись объекты
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (GameManager.Instance.healthContainer.ContainsKey(col.gameObject))
+        if (GameManager.Instance.healthContainer.ContainsKey(col.gameObject)) // if type of received object equals to object which should be stored in our container, we add it
         {
-            health = GameManager.Instance.healthContainer[col.gameObject];//в <> указываем компонент, который хотим получить от объекта, с которым столкнулись
-                                                                              //в переменную health попал компонент Health того объекта, с которым мы столкнулись
+            health = GameManager.Instance.healthContainer[col.gameObject];
             isCollision = true;
-            direction = (col.transform.position - transform.position).x; //получаем вектор, показывающий направление
+            direction = (col.transform.position - transform.position).x; // recieve vector, which show direction
             animator.SetFloat("Direction", Mathf.Abs(direction));
         }
     }
 
-    public void SetDamage() //use in animator as event
+    public void SetDamage() // is usd as event in animator 
     {
         if (health != null)
             health.TakeHit(damage);
         else
             health = null;
-        direction = 0; //если никуда не двигаемся, то и вектор направления равен 0
+        direction = 0; // if we aren't moving, then vector of direction equals 0
         animator.SetFloat("Direction", 0f);
     }
 

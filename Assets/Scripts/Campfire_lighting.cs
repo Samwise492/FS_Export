@@ -12,8 +12,7 @@ public class Campfire_lighting : MonoBehaviour
     private bool isIncreasing = true;
 
     void Update()
-    {
-        
+    {      
         if (isIncreasing)
         {
             lighting.intensity += intensitySpeed;

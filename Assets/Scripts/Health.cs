@@ -17,15 +17,15 @@ public class Health : MonoBehaviour
         }
     } //public Health
     #endregion health
-    //shader variables
+    // shader variables
     Material material;
     float fade = 1f;
     bool flag = false;
 
     private void Start()
     {
-        material = GetComponent<SpriteRenderer>().material; //Get a reference to the material
-        GameManager.Instance.healthContainer.Add(gameObject, this); //передаем ссылку на объект и на нужный элемент (этот скрипт)
+        material = GetComponent<SpriteRenderer>().material; // get a reference to the material
+        GameManager.Instance.healthContainer.Add(gameObject, this); // transfer link on object and on needed element (this script)
     }
 
     public void TakeHit(float damage)
@@ -36,9 +36,7 @@ public class Health : MonoBehaviour
         {
             flag = true;
             Update();
-        }
-
-        
+        }   
     }
 
     private void Update()
@@ -59,27 +57,14 @@ public class Health : MonoBehaviour
 
             material.SetFloat("_Fade", fade);
             
-        }
-        
+        }     
     }
 
     public void SetHealth(int bonusHealth)
     {
-        health += bonusHealth; //this.health += health; this - Обращаемся к переменной, которая находится в теле скрипта, а не в методе
+        health += bonusHealth;
 
         if (health > 100)
             health = 100;
     }
-
-    /*private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Heal"))
-        {
-            health += 40;
-            Destroy(col.gameObject);
-
-            if (health > 100)
-                health = 100;
-        }
-    }*/
 }

@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour
     private void Start()
     {
         if (PlayerPrefs.HasKey("Player_Name"))
-            nameField.text = PlayerPrefs.GetString("Player_Name"); //Get name which was written by the user
+            nameField.text = PlayerPrefs.GetString("Player_Name"); // get name which was written by the user
         if (PlayerPrefs.HasKey("Sound_State"))
         {
             soundState = PlayerPrefs.GetInt("Sound_State");
@@ -22,12 +22,12 @@ public class Menu : MonoBehaviour
 
     public void OnEndEditName()
     {
-        PlayerPrefs.SetString("Player_Name", nameField.text); //Set name which was written by the user
+        PlayerPrefs.SetString("Player_Name", nameField.text); // set name which was written by the user
     }
 
     public void OnClickPlay()
     {
-        SceneManager.LoadScene(1); //load 1st level
+        SceneManager.LoadScene(1); // load 1st level
     }
 
     public void OnClickExit()
@@ -37,14 +37,14 @@ public class Menu : MonoBehaviour
 
     public void OnClickMenu()
     {
-        SceneManager.LoadScene(0); //load menu
+        SceneManager.LoadScene(0); // load menu
     }
 
     public void OnClickResume()
     {
         SceneManager.UnloadSceneAsync(2);
         if (Time.timeScale > 0)
-            Time.timeScale = 0; //speed of time flowing
+            Time.timeScale = 0; // speed of time flowing
         else Time.timeScale = 1;
     }
 

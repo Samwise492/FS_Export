@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class Cell : MonoBehaviour // cell of inventory
+public class Cell : MonoBehaviour // Cell of inventory
 {
     [SerializeField] private Image icon;
     private Item item;
@@ -17,7 +17,7 @@ public class Cell : MonoBehaviour // cell of inventory
 
     public void Init(Item item)
     {
-        this.item = item; //initialize our item
+        this.item = item; // initialize our item
         if (item == null)
             icon.sprite = null;
         else

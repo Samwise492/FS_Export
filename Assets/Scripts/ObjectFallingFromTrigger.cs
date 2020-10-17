@@ -5,9 +5,9 @@ using UnityEngine;
 public class ObjectFallingFromTrigger : MonoBehaviour
 {
     private Player player;
-    [SerializeField] private GameObject fallingObject; //object that falls
-    [SerializeField] private GameObject triggerPoint; //spot for triggering
-    [SerializeField] private Transform fallPoint; //spot where object falls
+    [SerializeField] private GameObject fallingObject; // object that falls
+    [SerializeField] private GameObject triggerPoint; // spot for triggering
+    [SerializeField] private Transform fallPoint; // spot where object falls
 
     private void Update()
     {

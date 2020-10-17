@@ -17,7 +17,7 @@ public class GroundDetection : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D col) //если мы перестаем соприкосаться с каким-либо объектом
+    private void OnCollisionExit2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Platform"))
         {

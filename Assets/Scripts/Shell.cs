@@ -27,16 +27,16 @@ public class Shell : MonoBehaviour, IObjectDestroyer
     {
         this.player = player;
         triggerDamage.Init(this);
-        triggerDamage.Parent = player.gameObject; //устанавливаем что является родительским элементом
-        rb.AddForce(direction * force, ForceMode2D.Impulse); //метод, отвечающий за выстрел снаряда
-        if (force < 0) //если снаряд летит влево
-            transform.rotation = Quaternion.Euler(0, 180, 0); //Quaternion позволяет работать с поворотом объекта; поворот по Y на 180 градусов
+        triggerDamage.Parent = player.gameObject; // set what is parent element
+        rb.AddForce(direction * force, ForceMode2D.Impulse); // method for shooting
+        if (force < 0) // if shell flies in the left side
+            transform.rotation = Quaternion.Euler(0, 180, 0); // Quaternion allows to work with rotation of object; here we do 180 degree rotation
         StartCoroutine(StartLife()); 
     }
 
-    private IEnumerator StartLife() //задержка исчезновения стрелы
+    private IEnumerator StartLife() // delaying of shell's disappearance
     {
-        yield return new WaitForSeconds(lifeTime); //ставим время до уничтожения стрелы
+        yield return new WaitForSeconds(lifeTime); // set time until shell is disappeared
         Destroy(gameObject);
         yield break;
     }

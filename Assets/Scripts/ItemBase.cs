@@ -3,40 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "New Item Database", menuName = "Databases/Items")] //fileName - item which will be created by the "Item" script
-                                                                           //menuName - path in game menu (RCB in Unity) by which we're able to create item
-public class ItemBase : ScriptableObject //database of our existing buff items
+[CreateAssetMenu(fileName = "New Item Database", menuName = "Databases/Items")] // fileName - item which will be created by the "Item" script
+                                                                                // menuName - path in game menu (RCB in Unity) by which we're able to create item
+public class ItemBase : ScriptableObject // database of our existing buff items
 {
-    [SerializeField, HideInInspector] private List<Item> items; //list of our items
+    [SerializeField, HideInInspector] private List<Item> items; // list of our items
     [SerializeField] private Item currentItem;
     private int currentIndex;
 
-    public void CreateItem() //creating of a new item
+    public void CreateItem() // creating of a new item
     {
-        if (items == null) //if our list of item doesn't exist
-            items = new List<Item>(); //create such list
+        if (items == null) // if our list of item doesn't exist
+            items = new List<Item>(); // create such list
 
-        Item item = new Item(); //create a new item
+        Item item = new Item(); // create a new item
         items.Add(item);
         currentItem = item;
-        currentIndex = items.Count - 1; //cuz numbers start from 0, not from 1
+        currentIndex = items.Count - 1; // because numbers start from 0, not from 1
     }
 
     public void RemoveItem()
     {
-        if ((items == null) && (currentItem == null)) //if it's true, then we're about to delete unexisting dictionary or an element
-            return; //we won't do it, we'll just leave out of our method
+        if ((items == null) && (currentItem == null)) // if it's true, then we're about to delete unexisting dictionary or an element
+            return;                                   // we won't do it, we'll just leave out of our method
 
-        items.Remove(currentItem); //is everything is ok, and our element do exist, then we delete it
+        items.Remove(currentItem); // is everything is ok, and our element do exist, then we delete it
 
-        if (items.Count > 0) //are there elements in our dictionary?
-            currentItem = items[0]; //then element which we want to delete becomes to equal like zero element of the dictionary
-        else CreateItem(); //create void element, which we can delete if there are no other elements in dictionary
-                           //it's done in order to avoid the errors
+        if (items.Count > 0) // are there elements in our dictionary?
+            currentItem = items[0]; // if yes, then element which we want to delete becomes to equal like zero element of the dictionary
+        else CreateItem(); // create void element, which we can delete if there are no other elements in dictionary
+                           // it's done in order to avoid the errors
         currentIndex = 0;
     }
 
-    public void NextItem() //shows the next item
+    public void NextItem() // shows the next item
     {
         if (currentIndex + 1 < items.Count)
         {
@@ -45,7 +45,7 @@ public class ItemBase : ScriptableObject //database of our existing buff items
         }
     }
 
-    public void PrevItem() //shows the previous item
+    public void PrevItem() // shows the previous item
     {
         if (currentIndex > 0)
         {
@@ -56,12 +56,12 @@ public class ItemBase : ScriptableObject //database of our existing buff items
 
     public Item GetItemOfID(int id)
     {
-        return items.Find(t => t.ID == id); //first t is sorted element. If ID of sorted elements equals to entered id, then we'll recieve this "t"-element
+        return items.Find(t => t.ID == id); // first t is sorted element. If ID of sorted elements equals to entered id, then we'll recieve this "t"-element
     }
 }
 
 
-[System.Serializable] //it means that we can serialize our object
+[System.Serializable] // it means that we can serialize our object
 public class Item
 {
     #region id

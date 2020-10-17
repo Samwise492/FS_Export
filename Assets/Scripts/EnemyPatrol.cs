@@ -31,24 +31,23 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
-        animator.SetBool("isCollision", collisionDamage.IsCollision); //принимаем состояние переменной isCollision из скрипта CollisionDamage, это нужно для аниматора
+        animator.SetBool("isCollision", collisionDamage.IsCollision);
 
-        if (groundDetection.IsGrounded) //если он находится на земле, то... //это не позволяет двигаться объекту если он не на земле
-            if (transform.position.x > rightBorder.transform.position.x || collisionDamage.Direction < 0) //если у enemy переменная x компонента transform больше, 
-                                                                            //чем переменная x компонента transform правой границы или направление меньше нуля, то
+        if (groundDetection.IsGrounded)
+            if (transform.position.x > rightBorder.transform.position.x || collisionDamage.Direction < 0)
                 isRightDirection = false;
             else if (transform.position.x < leftBorder.transform.position.x || collisionDamage.Direction > 0)
                 isRightDirection = true;
 
-        rb.velocity = isRightDirection ? Vector2.right : Vector2.left; //если isRightDirection = true, то в rb.velocity запишется Vector2.right, иначе - Vector2.left
+        rb.velocity = isRightDirection ? Vector2.right : Vector2.left;
         rb.velocity *= speed;
 
-        if (rb.velocity.x < 0) //если скорость больше 0
-            spriteRenderer.flipX = false; //отменяем эффект отражения
-        if (rb.velocity.x > 0)
+        if (rb.velocity.x < 0) // if speed less than 0
+            spriteRenderer.flipX = false;
+        if (rb.velocity.x > 0) 
             spriteRenderer.flipX = true;
 
-        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x)); //устанавливаем переменной Speed типа float значение равное скорости; Mathf.Abs возвращает модуль от числа
+        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
     }
 }
     

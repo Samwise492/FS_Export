@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     private const int DefaultSpeed = 5;
     private Vector3 direction;
     private List<Shell> shellPool;
-    [SerializeField] private Rigidbody2D rb; //это твердое тело
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private Shell shell;
     [SerializeField] private GroundDetection groundDetection;
@@ -83,55 +83,53 @@ public class Player : MonoBehaviour
         Instance = this;
     }
 
-    void FixedUpdate() //void значит, что после выполнения программы результаты программы не выведется, но при это она просто выполнится
+    void FixedUpdate() // void means that program result won't appear after program is compiled; but program will be done
     {
-        animator.SetBool("isGrounded", groundDetection.IsGrounded);  //устанавливаем переменной isGrounded типа bool значение равное спорикосновению с землей
+        animator.SetBool("isGrounded", groundDetection.IsGrounded);
 
-        if (!isJumping && !groundDetection.IsGrounded) //если не в прыжке и не касаемся земли
+        if (!isJumping && !groundDetection.IsGrounded)
             animator.SetTrigger("StartFall");
 
-        isJumping = isJumping && !groundDetection.IsGrounded; //принимает значение того - находимся мы на земле или нет.
+        isJumping = isJumping && !groundDetection.IsGrounded;
 
-        //Moving
+        // Moving
         if (!isPushing)
         {
-            direction = Vector3.zero; //(0,0)  //обнуляем вектор. То есть если никуда мы не движемся, то и вектор не возрастает. Это происходит благодаря тому, 
-                                      //что каждый кадр проверяет условия и обнуляется если что
+            direction = Vector3.zero; // (0,0)  // nullify the vector. It means if we aren't moving, then the vector won't escalate and will nullify
 
-            if (Input.GetKey(KeyCode.A)) //GetKey - получаем то, что кнопка нажата
+            if (Input.GetKey(KeyCode.A)) // GetKey means if we hold the button
             {
-                direction = Vector3.left; //(-1,0)                          //deltaTime - время между текущим и предыдущим кадром (прошедшее между кадрами); это где-то 16 милисек
-                                          //transform - компонент, который перемещает объект в Unity Editor. Translate - ты говоришь куда перемещать объект
-                                          //Vector2 - вектор в двоичной системе
+                direction = Vector3.left; // (-1,0) // alternative is transform.Translate
+                                         
             }
 
             if (Input.GetKey(KeyCode.D))
             {
-                direction = Vector3.right; //(1,0) 
+                direction = Vector3.right; // (1,0) 
             }
 
             direction *= speed;
-            direction.y = rb.velocity.y; //чтобы после нового кадра ось y не становилась равной 0
+            direction.y = rb.velocity.y; // In order to y-axis won't nullify after new frame
         }
 
-        //Pushing
+        // Pushing
         if (!isPushing)
         {
-            rb.velocity = direction; //скорость равняется направлению движения (отриц. или полож.)
+            rb.velocity = direction; // speed equals direction of moving (negative or positive)
         }
             
-        //Sprite flipping
-        if (direction.x > 0) //если скорость больше 0
-            spriteRenderer.flipX = false; //отменяем эффект отражения
+        // Sprite flipping
+        if (direction.x > 0) // if speed more than 0
+            spriteRenderer.flipX = false; // cancel reflection effect
         if (direction.x < 0)
             spriteRenderer.flipX = true;
 
-        animator.SetFloat("Speed", Mathf.Abs(direction.x)); //устанавливаем переменной Speed типа float значение равное скорости; Mathf.Abs возвращает модуль от числа
+        animator.SetFloat("Speed", Mathf.Abs(direction.x)); // return absolute value of our speed
         animator.SetBool("isPushing", isPushing);
 
-        CheckFall(); //is player fallen
+        CheckFall();
 
-        //Immortality
+        // Immortality
         if (isCheatMode) 
             Health.CurrentHealth = 1000;
         else
@@ -188,10 +186,10 @@ public class Player : MonoBehaviour
     public void InitUIController(UICharacterController uiController)
     {
         controller = uiController;
-        controller.Jump.onClick.AddListener(Jump); // without brackets because we give link to this method, but don't invoke it
+        controller.Jump.onClick.AddListener(Jump); // add method without brackets because we give link to this method, but don't invoke it
     }
 
-    private void CheckFall() //проверяем упал ли игрок
+    private void CheckFall()
     {
         if (transform.position.y < minimalHeight && isCheatMode) //мы берем из элемента transform в инспекторе свойство position, а из него берем значение y.
                                                                  //если персонаж достиг нашей минимальной высоты (minimal Height), то
@@ -238,60 +236,56 @@ public class Player : MonoBehaviour
         }
     }
 
-    private Shell GetShellFromPool() //вытаскиваем снаряд из пула снарядов
+    private Shell GetShellFromPool()
     {
-        if (shellPool.Count > 0) //если количество снарядов в пуле > 0
+        if (shellPool.Count > 0) // if number of shells > 0
         {
-            var shellTemp = shellPool[0]; //создаем снаряд
-            shellPool.Remove(shellTemp); // достаем снаряд из пула
-            shellTemp.gameObject.SetActive(true); //делаем активным
-            shellTemp.transform.parent = null; //достаем снаряд из родителя (spawnpoint всех снарядов)
-            shellTemp.transform.position = shellSpawnPoint.transform.position; //выпускаем из spawnpoint'а
+            var shellTemp = shellPool[0]; // create shell
+            shellPool.Remove(shellTemp); // pull out shell from pool
+            shellTemp.gameObject.SetActive(true); // make shell active
+            shellTemp.transform.parent = null; // pull out shell from parent object (spawnpoint of all shells)
+            shellTemp.transform.position = shellSpawnPoint.transform.position; // release from spawnpoint
             return shellTemp;
         }
         return Instantiate
-                    (shell, shellSpawnPoint.position, Quaternion.identity); //если вдруг снаряд из пула не вызвался, то нас подстрахует создание его через instantiate
+                    (shell, shellSpawnPoint.position, Quaternion.identity); // if suddenly shell wasn't invoked from pool, we'll create it through Instantiate
     }
-    public void ReturnShellToPool(Shell shellTemp) //возвращаем снаряд в пул снарядов
+    public void ReturnShellToPool(Shell shellTemp)
     {
-        if (!shellPool.Contains(shellTemp)) //если shellTemp нету в shellPool
+        if (!shellPool.Contains(shellTemp)) // if shellTemp doesn't exist in shellPool
             shellPool.Add(shellTemp);
-        shellTemp.transform.parent = shellSpawnPoint; //прикрепляем в иерархии снаряд к spawnpoint
-        shellTemp.transform.position = shellSpawnPoint.transform.position; //прикрепляем по координатам снаряд к spawnpoint
-        shellTemp.gameObject.SetActive(false); //отключаем снаряд   
+        shellTemp.transform.parent = shellSpawnPoint; // attach shell to spawnpoint (in hierarchy)
+        shellTemp.transform.position = shellSpawnPoint.transform.position; // attach shell to spawnpoint by coordinates
+        shellTemp.gameObject.SetActive(false); // make shell inactive
     }
-    void CheckShoot() //выстрел
+    void CheckShoot()
     {
         if (isReadyForShoot)
-            if (Input.GetMouseButtonDown(0)) //0 - лкм, 1 - пкм
+            if (Input.GetMouseButtonDown(0)) //0 - LMB, 1 - RMB
             {
-                animator.SetTrigger("isShooting");
-                
-                Shell prefab = GetShellFromPool(); //1. что мы спауним, 2. где мы спауним, 3. какой поворот объекта (у нас - никакой)
+                animator.SetTrigger("isShooting");        
+                Shell prefab = GetShellFromPool();
+
                 if (bonusDamage != 0 && (prefab.triggerDamage.Damage <= TriggerDamage.DefaultDamage * 2))
                 {
                     prefab.triggerDamage.Damage *= bonusDamage;
                     StartCoroutine(DamageBoost(prefab));
                 }
-                /*if (isBuffedDamage)
-                {
-                    prefab.triggerDamage.Damage *= buffReciever.recievedBuff.bonus; // double our damage
-                    StartCoroutine(DamageBoost());
-                }
-                else prefab.triggerDamage.Damage = TriggerDamage.DefaultDamage; // set damage value to default*/
+
+                // vector direction (where should he flies) and fly force
+                //(jump force * 20) + if flipX = true, shoot in the left side, otherwise in the right one
                 prefab.SetImpulse
-                    (Vector2.right, spriteRenderer.flipX ? -jumpForce * shootForce : jumpForce * shootForce, this); //направление вектора куда должен лететь снаряд и сила, с которой 
-                //он полетит (прыжок персонажа * 20) + делаем проверку, если flipX = true, то стреляем влево, а иначе - вправо
+                    (Vector2.right, spriteRenderer.flipX ? -jumpForce * shootForce : jumpForce * shootForce, this); 
                 
                 StartCoroutine(Reload());
             }
     }
 
-    public IEnumerator Reload() //перезарядка
+    public IEnumerator Reload()
     {
-        yield return new WaitForSeconds(0.1f); //время сколько можно стрелять игроку
+        yield return new WaitForSeconds(0.1f); // how long can player shoot
         isReadyForShoot = false;
-        yield return new WaitForSeconds(reloadTime); //время перезарядки
+        yield return new WaitForSeconds(reloadTime); // reload time
         isReadyForShoot = true;
         yield break;
     }
