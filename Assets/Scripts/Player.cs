@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Health health;
     public Health Health { get { return health; } }
     #endregion
+    #region Singleton
+    public static Player Instance { get; set; }
+    #endregion
     [SerializeField] private int shellsCount;
     [SerializeField] private float shootForce = 5;
     [SerializeField] private float pushForce = 5;
@@ -63,7 +66,6 @@ public class Player : MonoBehaviour
     private int bonusForce;
     private int bonusHealth;
     private int bonusDamage;
-    //private const int DefaultJumpForce = 8;
     private const int DefaultSpeed = 5;
     private Vector3 direction;
     private List<Shell> shellPool;
@@ -74,12 +76,15 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform shellSpawnPoint;
     [SerializeField] private BuffReciever buffReciever;
-    static bool isBuffedDamage;
-    static bool isBuffedForce;
+    private UICharacterController controller;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void FixedUpdate() //void значит, что после выполнения программы результаты программы не выведется, но при это она просто выполнится
     {
-
         animator.SetBool("isGrounded", groundDetection.IsGrounded);  //устанавливаем переменной isGrounded типа bool значение равное спорикосновению с землей
 
         if (!isJumping && !groundDetection.IsGrounded) //если не в прыжке и не касаемся земли
@@ -99,6 +104,7 @@ public class Player : MonoBehaviour
                                           //transform - компонент, который перемещает объект в Unity Editor. Translate - ты говоришь куда перемещать объект
                                           //Vector2 - вектор в двоичной системе
             }
+
             if (Input.GetKey(KeyCode.D))
             {
                 direction = Vector3.right; //(1,0) 
@@ -139,40 +145,6 @@ public class Player : MonoBehaviour
             CheckShoot();
         else
             return;
-
-        //Jumping
-        if (!isPushing)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && groundDetection.IsGrounded) //Если кнопка нажата 1 раз и мы на земле
-            {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //прикладываем силу к объекту
-                                                                          //ForceMode2D - тип силы, которую мы применяем к объекту, а Impulse - значит, что тип воздействия импульс,
-                                                                          //ведь мы просто кидаем объект, а потом отпускаем его, мы не действуем на него постоянно, поэтому - импульс.
-                animator.SetTrigger("StartJump"); //если мы прыгнули - активируем триггер старт джамп, означающий, что мы прыгнули
-                isJumping = true; //оттолкнулись от земли - стала true
-            }
-        }
-
-        /*if (!isBuffedForce)
-        {
-            speed = DefaultSpeed;
-        }*/
-    }
-
-    void CheckFall() //проверяем упал ли игрок
-    {
-        if (transform.position.y < minimalHeight && isCheatMode) //мы берем из элемента transform в инспекторе свойство position, а из него берем значение y.
-                                                                 //если персонаж достиг нашей минимальной высоты (minimal Height), то
-        {
-            rb.velocity = new Vector2(0, 0); //velocity - вектор скорости. //Vector2 и Vector3 - взаимозаменяемые, то есть в двумерном пространстве нет z как 
-                                             //такого, можешь использовать и то, и то. А вот в 3-хмерном пространстве это уже существенная разница
-
-            transform.position = new Vector3(0, 0, 0); //перемещаемся в центр игрового мира
-        }
-        else if (transform.position.y < minimalHeight && !isCheatMode)
-        {
-            Destroy(gameObject); //уничтожает объект со сцены, которые мы передаем ему внутрь скобок (через инспектор)
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D col) 
@@ -213,6 +185,42 @@ public class Player : MonoBehaviour
         buffReciever.OnBuffsChanged += BuffHandler;
     }
 
+    public void InitUIController(UICharacterController uiController)
+    {
+        controller = uiController;
+        controller.Jump.onClick.AddListener(Jump); // without brackets because we give link to this method, but don't invoke it
+    }
+
+    private void CheckFall() //проверяем упал ли игрок
+    {
+        if (transform.position.y < minimalHeight && isCheatMode) //мы берем из элемента transform в инспекторе свойство position, а из него берем значение y.
+                                                                 //если персонаж достиг нашей минимальной высоты (minimal Height), то
+        {
+            rb.velocity = new Vector2(0, 0); //velocity - вектор скорости. //Vector2 и Vector3 - взаимозаменяемые, то есть в двумерном пространстве нет z как 
+                                             //такого, можешь использовать и то, и то. А вот в 3-хмерном пространстве это уже существенная разница
+
+            transform.position = new Vector3(0, 0, 0); //перемещаемся в центр игрового мира
+        }
+        else if (transform.position.y < minimalHeight && !isCheatMode)
+        {
+            Destroy(gameObject); //уничтожает объект со сцены, которые мы передаем ему внутрь скобок (через инспектор)
+        }
+    }
+    private void Jump()
+    {
+        if (!isPushing)
+        {
+            if (groundDetection.IsGrounded) //Если кнопка нажата 1 раз и мы на земле
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //прикладываем силу к объекту
+                                                                          //ForceMode2D - тип силы, которую мы применяем к объекту, а Impulse - значит, что тип воздействия импульс,
+                                                                          //ведь мы просто кидаем объект, а потом отпускаем его, мы не действуем на него постоянно, поэтому - импульс.
+                animator.SetTrigger("StartJump"); //если мы прыгнули - активируем триггер старт джамп, означающий, что мы прыгнули
+                isJumping = true; //оттолкнулись от земли - стала true
+            }
+        }
+    }
+
     private void BuffHandler()
     {
         var forceBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Force); //find variable which type == Force. If there is nothing it'll equal null
@@ -244,7 +252,6 @@ public class Player : MonoBehaviour
         return Instantiate
                     (shell, shellSpawnPoint.position, Quaternion.identity); //если вдруг снаряд из пула не вызвался, то нас подстрахует создание его через instantiate
     }
-
     public void ReturnShellToPool(Shell shellTemp) //возвращаем снаряд в пул снарядов
     {
         if (!shellPool.Contains(shellTemp)) //если shellTemp нету в shellPool
@@ -253,7 +260,6 @@ public class Player : MonoBehaviour
         shellTemp.transform.position = shellSpawnPoint.transform.position; //прикрепляем по координатам снаряд к spawnpoint
         shellTemp.gameObject.SetActive(false); //отключаем снаряд   
     }
-
     void CheckShoot() //выстрел
     {
         if (isReadyForShoot)
