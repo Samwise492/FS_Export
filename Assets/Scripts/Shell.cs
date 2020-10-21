@@ -18,11 +18,6 @@ public class Shell : MonoBehaviour, IObjectDestroyer
     }
     #endregion force
 
-    public void Destroy(GameObject gameObject)
-    {
-        player.ReturnShellToPool(this);
-    }
-
     public void SetImpulse(Vector2 direction, float force, Player player)
     {
         this.player = player;
@@ -37,7 +32,12 @@ public class Shell : MonoBehaviour, IObjectDestroyer
     private IEnumerator StartLife() // delaying of shell's disappearance
     {
         yield return new WaitForSeconds(lifeTime); // set time until shell is disappeared
-        Destroy(gameObject);
+        player.ReturnShellToPool(this);
         yield break;
+    }
+
+    public void Destroy(GameObject gameObject)
+    {
+
     }
 }

@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4212342813967799684}
   spriteRenderer: {fileID: 4212342813967799687}
-  lifeTime: 1
+  lifeTime: 2
   triggerDamage: {fileID: 2744692698850259666}
   force: 0
 --- !u!114 &2744692698850259666

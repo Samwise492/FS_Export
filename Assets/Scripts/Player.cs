@@ -56,7 +56,10 @@ public class Player : MonoBehaviour
     #region Singleton
     public static Player Instance { get; set; }
     #endregion
-    [SerializeField] private int shellsCount;
+    #region shellsCount
+    private int shellsCount = 3;
+    public int ShellsCount => shellsCount;
+    #endregion
     [SerializeField] private float shootForce = 5;
     [SerializeField] private float pushForce = 5;
     [SerializeField] private bool isCheatMode;
@@ -68,7 +71,7 @@ public class Player : MonoBehaviour
     private int bonusDamage;
     private const int DefaultSpeed = 5;
     private Vector3 direction;
-    private List<Shell> shellPool;
+    public List<Shell> shellPool;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private Shell shell;
@@ -92,25 +95,7 @@ public class Player : MonoBehaviour
 
         isJumping = isJumping && !groundDetection.IsGrounded;
 
-        // Moving
-        if (!isPushing)
-        {
-            direction = Vector3.zero; // (0,0)  // nullify the vector. It means if we aren't moving, then the vector won't escalate and will nullify
-
-            if (Input.GetKey(KeyCode.A)) // GetKey means if we hold the button
-            {
-                direction = Vector3.left; // (-1,0) // alternative is transform.Translate
-                                         
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                direction = Vector3.right; // (1,0) 
-            }
-
-            direction *= speed;
-            direction.y = rb.velocity.y; // In order to y-axis won't nullify after new frame
-        }
+        Move();
 
         // Pushing
         if (!isPushing)
@@ -138,18 +123,17 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        //Shooting
-        if (!isJumping && groundDetection.IsGrounded)
-            CheckShoot();
-        else
-            return;
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space) && groundDetection.IsGrounded)
+            Jump();
+#endif
     }
 
     private void OnTriggerEnter2D(Collider2D col) 
     {
-        if (col.gameObject.CompareTag("Piece of light")) //сбор монет
+        if (col.gameObject.CompareTag("Piece of light"))
         {
-            PlayerInventory.Instance.Light_piecesCount++; //начисляем куски света через обращение к функции скрипта PlayerInventory
+            PlayerInventory.Instance.Light_piecesCount++;
             PlayerInventory.Instance.light_piecesText.text = PlayerInventory.Instance.Light_piecesCount.ToString();
             Destroy(col.gameObject);
         }
@@ -162,7 +146,7 @@ public class Player : MonoBehaviour
             var pushVector = (transform.position.x - col.gameObject.transform.position.x) > 0 ? Vector3.right : Vector3.left;
             rb.AddForce(pushVector * pushForce, ForceMode2D.Impulse);
             rb.AddForce(Vector3.up * pushForce, ForceMode2D.Impulse);
-            StartCoroutine(Pushing()); //player isn't able to move
+            StartCoroutine(Pushing()); // player isn't able to move
         }
     }
 
@@ -171,57 +155,85 @@ public class Player : MonoBehaviour
         shellPool = new List<Shell>();
         for (int i = 0; i < shellsCount; i++)
         {
-            var shellTemp = Instantiate(shell, shellSpawnPoint); //создаём стрелу
-            //var - тип, который может стать любым другим типом. В данном случае у нас переменная shellTemp того типа, который мы получим от команд или
-            //который передадим сами
-            shellPool.Add(shellTemp); //добавляем стрелу в общий стак стрел
-            shellTemp.gameObject.SetActive(false); //выключаем этот объект, чтобы он не появился на сцене когда не нужно
+            var shellTemp = Instantiate(shell, shellSpawnPoint); // create the shell
+            shellPool.Add(shellTemp);
+            shellTemp.gameObject.SetActive(false); // turn it off in order to this object wouldn't appear when it's not necessary
         }
 
-        //buffReciever.onBuffsChanged += BuffHandler; // add method to reciever
-        //buffReciever.onBuffsChanged();
         buffReciever.OnBuffsChanged += BuffHandler;
     }
 
     public void InitUIController(UICharacterController uiController)
     {
         controller = uiController;
-        controller.Jump.onClick.AddListener(Jump); // add method without brackets because we give link to this method, but don't invoke it
+        controller.JumpButton.onClick.AddListener(Jump); // add method without brackets because we give link to this method, but don't invoke it 
+        controller.FireButton.onClick.AddListener(CheckShoot);
     }
 
     private void CheckFall()
     {
-        if (transform.position.y < minimalHeight && isCheatMode) //мы берем из элемента transform в инспекторе свойство position, а из него берем значение y.
-                                                                 //если персонаж достиг нашей минимальной высоты (minimal Height), то
+        if (transform.position.y < minimalHeight && isCheatMode) // if main character has reached our minimal height
         {
-            rb.velocity = new Vector2(0, 0); //velocity - вектор скорости. //Vector2 и Vector3 - взаимозаменяемые, то есть в двумерном пространстве нет z как 
-                                             //такого, можешь использовать и то, и то. А вот в 3-хмерном пространстве это уже существенная разница
-
-            transform.position = new Vector3(0, 0, 0); //перемещаемся в центр игрового мира
+            rb.velocity = new Vector2(0, 0); // velocity - speed vector
+            transform.position = new Vector3(0, 0, 0); // move in the center of the game world
         }
         else if (transform.position.y < minimalHeight && !isCheatMode)
         {
-            Destroy(gameObject); //уничтожает объект со сцены, которые мы передаем ему внутрь скобок (через инспектор)
+            Destroy(gameObject);
         }
     }
+
+    private void Move()
+    {
+        if (!isPushing)
+        {
+            direction = Vector3.zero; // (0,0)  // nullify the vector. It means if we aren't moving, then the vector won't escalate and will nullify
+#if UNITY_EDITOR
+            if (Input.GetKey(KeyCode.A))
+            {
+                direction = Vector3.left;
+
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                direction = Vector3.right;
+            }
+#endif
+            if (controller.LeftButton.IsPressed)
+            {
+                direction = Vector3.left; // (-1,0) // alternative is transform.Translate
+
+            }
+            if (controller.RightButton.IsPressed)
+            {
+                direction = Vector3.right; // (1,0) 
+            }
+
+            direction *= speed;
+            direction.y = rb.velocity.y; // In order to y-axis won't nullify after new frame
+        }
+    }
+
     private void Jump()
     {
         if (!isPushing)
         {
-            if (groundDetection.IsGrounded) //Если кнопка нажата 1 раз и мы на земле
+            if (groundDetection.IsGrounded)
             {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //прикладываем силу к объекту
-                                                                          //ForceMode2D - тип силы, которую мы применяем к объекту, а Impulse - значит, что тип воздействия импульс,
-                                                                          //ведь мы просто кидаем объект, а потом отпускаем его, мы не действуем на него постоянно, поэтому - импульс.
-                animator.SetTrigger("StartJump"); //если мы прыгнули - активируем триггер старт джамп, означающий, что мы прыгнули
-                isJumping = true; //оттолкнулись от земли - стала true
+                // apply force to the object
+                // ForceMode2D - kind of force, which we apply to the obejct; Impulse means that kind of force is impulse.
+                // we just throw the object, and release it. We don't do it continiously, because it is impulse
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
+
+                animator.SetTrigger("StartJump");
+                isJumping = true;
             }
         }
     }
 
     private void BuffHandler()
     {
-        var forceBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Force); //find variable which type == Force. If there is nothing it'll equal null
+        var forceBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Force); // find variable which type == Force. If there is nothing it'll equal null
         var damageBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Damage);
         var healthBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Health);
         bonusForce = forceBuff == null ? 0 : forceBuff.bonus;
@@ -261,23 +273,25 @@ public class Player : MonoBehaviour
     void CheckShoot()
     {
         if (isReadyForShoot)
-            if (Input.GetMouseButtonDown(0)) //0 - LMB, 1 - RMB
             {
-                animator.SetTrigger("isShooting");        
-                Shell prefab = GetShellFromPool();
-
-                if (bonusDamage != 0 && (prefab.triggerDamage.Damage <= TriggerDamage.DefaultDamage * 2))
+                if (!isJumping && groundDetection.IsGrounded)
                 {
-                    prefab.triggerDamage.Damage *= bonusDamage;
-                    StartCoroutine(DamageBoost(prefab));
-                }
+                    animator.SetTrigger("isShooting");
+                    Shell prefab = GetShellFromPool();
 
-                // vector direction (where should he flies) and fly force
-                //(jump force * 20) + if flipX = true, shoot in the left side, otherwise in the right one
-                prefab.SetImpulse
-                    (Vector2.right, spriteRenderer.flipX ? -jumpForce * shootForce : jumpForce * shootForce, this); 
-                
-                StartCoroutine(Reload());
+                    if (bonusDamage != 0 && (prefab.triggerDamage.Damage <= TriggerDamage.DefaultDamage * 2))
+                    {
+                        prefab.triggerDamage.Damage *= bonusDamage;
+                        StartCoroutine(DamageBoost(prefab));
+                    }
+
+                    // vector direction (where should he flies) and fly force
+                    //(jump force * 20) + if flipX = true, shoot in the left side, otherwise in the right one
+                    prefab.SetImpulse
+                        (Vector2.right, spriteRenderer.flipX ? -jumpForce * shootForce : jumpForce * shootForce, this);
+
+                    StartCoroutine(Reload());
+                }
             }
     }
 

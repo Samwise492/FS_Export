@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\PressedButton.cs" />
+    <Compile Include="Assets\Scripts\ReloadInFireButton.cs" />
     <Compile Include="Assets\Scripts\Shell.cs" />
     <Compile Include="Assets\Scripts\TriggerDamage.cs" />
     <Compile Include="Assets\Scripts\UICharacterController.cs" />

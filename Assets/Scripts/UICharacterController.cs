@@ -5,21 +5,21 @@ using UnityEngine.UI;
 
 public class UICharacterController : MonoBehaviour
 {
-    #region left
-    [SerializeField] private PressedButton left;
-    public PressedButton Left => left;
+    #region left button
+    [SerializeField] private PressedButton leftButton;
+    public PressedButton LeftButton => leftButton;
     #endregion
-    #region right
-    [SerializeField] private PressedButton right;
-    public PressedButton Right => right;
+    #region right button
+    [SerializeField] private PressedButton rightButton;
+    public PressedButton RightButton => rightButton;
     #endregion
-    #region fire
-    [SerializeField] private Button fire;
-    public Button Fire => fire;
+    #region fire button
+    [SerializeField] private Button fireButton;
+    public Button FireButton => fireButton;
     #endregion
-    #region jump
-    [SerializeField] private Button jump;
-    public Button Jump => jump;
+    #region jump button
+    [SerializeField] private Button jumpButton;
+    public Button JumpButton => jumpButton;
     #endregion
 
     void Start()
