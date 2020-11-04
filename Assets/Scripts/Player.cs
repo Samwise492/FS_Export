@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -79,6 +79,8 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform shellSpawnPoint;
     [SerializeField] private BuffReciever buffReciever;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private Text deathText;
     private UICharacterController controller;
 
     private void Awake()
@@ -293,6 +295,17 @@ public class Player : MonoBehaviour
                     StartCoroutine(Reload());
                 }
             }
+    }
+
+    private void OnDestroy()
+    {
+        if (playerCamera != null)
+        {
+            playerCamera.transform.parent = null; // throw the object out of player on scene
+            playerCamera.enabled = true; // turn on the camera
+        }
+        if (deathText != null)
+            deathText.gameObject.SetActive(true);
     }
 
     public IEnumerator Reload()
