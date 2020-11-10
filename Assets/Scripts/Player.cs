@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     }
     #endregion
     #region minimalHeight
-    [SerializeField, HideInInspector] private float minimalHeight;
+    [SerializeField] private float minimalHeight;
     public float MinimalHeight
     {
         get { return minimalHeight; }
@@ -301,8 +301,8 @@ public class Player : MonoBehaviour
     {
         if (playerCamera != null)
         {
-            playerCamera.transform.parent = null; // throw the object out of player on scene
-            playerCamera.enabled = true; // turn on the camera
+            playerCamera.gameObject.transform.parent = null; // throw the object out of player on scene
+            playerCamera.enabled = true; // turn on the camera   
         }
         if (deathText != null)
             deathText.gameObject.SetActive(true);
