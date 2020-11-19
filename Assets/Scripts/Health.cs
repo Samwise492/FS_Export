@@ -20,7 +20,8 @@ public class Health : MonoBehaviour
     // shader variables
     Material material;
     float fade = 1f;
-    bool flag = false;
+    bool flag = false; // should object be faded
+    [SerializeField] bool isPlayer;
 
     private void Start()
     {
@@ -52,7 +53,10 @@ public class Health : MonoBehaviour
             if (fade <= 0f)
             {
                 fade = 0f;
-                Destroy(gameObject);
+                if (isPlayer)
+                    Player.Instance.Death();
+                else Destroy(gameObject);
+                
             }
 
             material.SetFloat("_Fade", fade);

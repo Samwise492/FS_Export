@@ -8,6 +8,7 @@ TagManager:
   - Platform
   - Piece of light
   - Heal
+  - Death
   layers:
   - Default
   - TransparentFX

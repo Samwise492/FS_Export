@@ -29,18 +29,6 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-    #region minimalHeight
-    [SerializeField] private float minimalHeight;
-    public float MinimalHeight
-    {
-        get { return minimalHeight; }
-        set
-        {
-            if (value < 5)
-                minimalHeight = value;
-        }
-    }
-    #endregion
     #region reloadTime
     [SerializeField] private float reloadTime;
     public float ReloadTime
@@ -114,8 +102,6 @@ public class Player : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(direction.x)); // return absolute value of our speed
         animator.SetBool("isPushing", isPushing);
 
-        CheckFall();
-
         // Immortality
         if (isCheatMode) 
             Health.CurrentHealth = 1000;
@@ -138,6 +124,10 @@ public class Player : MonoBehaviour
             PlayerInventory.Instance.Light_piecesCount++;
             PlayerInventory.Instance.light_piecesText.text = PlayerInventory.Instance.Light_piecesCount.ToString();
             Destroy(col.gameObject);
+        }
+        if (col.gameObject.CompareTag("Death"))
+        {
+            Death();
         }
     }
 
@@ -172,17 +162,16 @@ public class Player : MonoBehaviour
         controller.FireButton.onClick.AddListener(CheckShoot);
     }
 
-    private void CheckFall()
+    public void Death()
     {
-        if (transform.position.y < minimalHeight && isCheatMode) // if main character has reached our minimal height
+        if (playerCamera != null)
         {
-            rb.velocity = new Vector2(0, 0); // velocity - speed vector
-            transform.position = new Vector3(0, 0, 0); // move in the center of the game world
+            playerCamera.gameObject.transform.parent = null; // throw the object out of player on scene
+            playerCamera.enabled = true; // turn on the camera   
         }
-        else if (transform.position.y < minimalHeight && !isCheatMode)
-        {
-            Destroy(gameObject);
-        }
+        if (deathText != null)
+            deathText.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     private void Move()
@@ -297,20 +286,9 @@ public class Player : MonoBehaviour
             }
     }
 
-    private void OnDestroy()
-    {
-        if (playerCamera != null)
-        {
-            playerCamera.gameObject.transform.parent = null; // throw the object out of player on scene
-            playerCamera.enabled = true; // turn on the camera   
-        }
-        if (deathText != null)
-            deathText.gameObject.SetActive(true);
-    }
-
     public IEnumerator Reload()
     {
-        yield return new WaitForSeconds(0.1f); // how long can player shoot
+        yield return new WaitForSeconds(0.05f); // how long can player shoot
         isReadyForShoot = false;
         yield return new WaitForSeconds(reloadTime); // reload time
         isReadyForShoot = true;

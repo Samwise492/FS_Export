@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.47
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.6
+  m_FalloffIntensity: 0.75
+  m_Color: {r: 0.9339623, g: 0.2687344, b: 0.2687344, a: 1}
+  m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -58,8 +58,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 3.77
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 2
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -99,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117303306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5134629159372216756}
@@ -204,7 +204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5134629159372216756
 Transform:
   m_ObjectHideFlags: 0
@@ -295,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470021283866280062}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.041, y: -0.806, z: -6.387364}
+  m_LocalPosition: {x: -0.041, y: -0.806, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1556907836366329926}
@@ -357,8 +357,6 @@ GameObject:
   - component: {fileID: -7109840169270053310}
   - component: {fileID: 5478864582615817766}
   - component: {fileID: 4001477695899016955}
-  - component: {fileID: 1708964722}
-  - component: {fileID: 1708964721}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -402,7 +400,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f52494171173ba345b893b5127eca8cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -443,7 +441,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1556907836366329979}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3f68e758963dae347a072bed0198b946, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -513,8 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 8
-  minimalHeight: -20
+  jumpForce: 7
   reloadTime: 0.5
   health: {fileID: -7109840169270053310}
   shootForce: 7
@@ -543,6 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  isPlayer: 0
 --- !u!114 &5478864582615817766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,50 +571,6 @@ MonoBehaviour:
   recievedBuff:
     type: 0
     bonus: 0
---- !u!68 &1708964722
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556907836366329979}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3f68e758963dae347a072bed0198b946, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 0.31914043, y: -0.6656785}
-  - {x: 0.38882732, y: -0.4126277}
-  - {x: 0.38771725, y: -0.13361692}
-  - {x: 0.45231915, y: 0.050671577}
-  - {x: 0.4251356, y: 0.24215412}
-  - {x: 0.2907753, y: 0.4637971}
---- !u!68 &1708964721
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556907836366329979}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3f68e758963dae347a072bed0198b946, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.30289936, y: -0.7047119}
-  - {x: -0.38267708, y: -0.6234689}
-  - {x: -0.24702644, y: -0.3047433}
-  - {x: -0.37664604, y: -0.078798294}
-  - {x: -0.3519926, y: 0.13490343}
-  - {x: -0.23449135, y: 0.465827}
 --- !u!1 &7970247455898747013
 GameObject:
   m_ObjectHideFlags: 0
