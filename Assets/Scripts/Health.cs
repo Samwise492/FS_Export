@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
     float fade = 1f;
     bool flag = false; // should object be faded
     [SerializeField] bool isPlayer;
+    private bool isHitting;
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class Health : MonoBehaviour
     public void TakeHit(float damage)
     {
         health -= damage;
-
+        
         if (health <= 0)
         {
             flag = true;

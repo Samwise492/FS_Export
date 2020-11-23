@@ -36,9 +36,11 @@ public class CollisionDamage : MonoBehaviour
             direction = (col.transform.position - transform.position).x; // recieve vector, which show direction
             animator.SetFloat("Direction", Mathf.Abs(direction));
         }
+
+        DealDamage();
     }
 
-    public void SetDamage() // is usd as event in animator 
+    public void DealDamage() 
     {
         if (health != null)
             health.TakeHit(damage);
@@ -52,4 +54,6 @@ public class CollisionDamage : MonoBehaviour
     {
         isCollision = false;
     }
+
+    
 }

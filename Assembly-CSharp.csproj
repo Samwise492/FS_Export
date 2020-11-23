@@ -80,7 +80,6 @@
     <Compile Include="Assets\Scripts\ItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemComponent.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
-    <Compile Include="Assets\Scripts\MotionlessObjectAttack.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\PressedButton.cs" />

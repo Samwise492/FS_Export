@@ -540,7 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  isPlayer: 0
+  isPlayer: 1
+  isEnemy: 0
 --- !u!114 &5478864582615817766
 MonoBehaviour:
   m_ObjectHideFlags: 0
