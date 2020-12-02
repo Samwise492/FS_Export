@@ -66,7 +66,6 @@
     <Compile Include="Assets\Scripts\AdsButton.cs" />
     <Compile Include="Assets\Scripts\BuffEmitter.cs" />
     <Compile Include="Assets\Scripts\BuffReciever.cs" />
-    <Compile Include="Assets\Scripts\Campfire_lighting.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\CollisionDamage.cs" />
     <Compile Include="Assets\Scripts\EnemyPatrol.cs" />
@@ -79,6 +78,7 @@
     <Compile Include="Assets\Scripts\InventoryUIController.cs" />
     <Compile Include="Assets\Scripts\ItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemComponent.cs" />
+    <Compile Include="Assets\Scripts\LightIntensityVolume.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerInventory.cs" />
