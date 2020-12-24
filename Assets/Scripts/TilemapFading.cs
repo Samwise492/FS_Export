@@ -27,7 +27,7 @@ public class TilemapFading : MonoBehaviour
     {
         if (isTrigger) // fade the tilemap (change alpha value)
         {
-            if (fadeValue > 0.1f)
+            if (fadeValue > 0.025f)
                 fadeValue -= 0.025f;
             tilemap.color = new Color(standartColor.r, standartColor.g, standartColor.b, fadeValue);
         }

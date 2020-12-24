@@ -9,6 +9,7 @@ TagManager:
   - Piece of light
   - Heal
   - Death
+  - Easter
   layers:
   - Default
   - TransparentFX
