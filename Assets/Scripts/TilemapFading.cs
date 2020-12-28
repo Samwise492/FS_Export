@@ -5,16 +5,24 @@ using UnityEngine.Tilemaps;
 
 public class TilemapFading : MonoBehaviour
 {
-    public bool isTrigger;
+    private bool isTrigger;
     private float fadeValue = 1;
     [SerializeField] private Tilemap tilemap;
     private Color standartColor;
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            isTrigger = !isTrigger;
+            isTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            isTrigger = false;
         }
     }
 

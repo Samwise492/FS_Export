@@ -1812,7 +1812,7 @@ GameObject:
   - component: {fileID: 8920964732859669134}
   - component: {fileID: 3416457914438417076}
   m_Layer: 31
-  m_Name: Backgroun Sunnyland
+  m_Name: Background palette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
