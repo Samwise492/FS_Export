@@ -105,8 +105,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 099c4aaf80d1509429165d4c003cebbf, type: 3}
-  m_Color: {r: 1, g: 0.9535162, b: 0.6650944, a: 0.5803922}
+  m_Sprite: {fileID: 21300000, guid: eeeaa57ed8d4e004fbc11efe7280992e, type: 3}
+  m_Color: {r: 1, g: 0.9535162, b: 0.6650944, a: 0.7019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -154,7 +154,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 4.3, y: 4.2999997}
     newSize: {x: 0.04, y: 0.04}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.73
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.13
   m_LightVolumeOpacity: 0.25
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}

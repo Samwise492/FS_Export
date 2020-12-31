@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3664235204592156702}
   - component: {fileID: 3664235204592156700}
   m_Layer: 0
-  m_Name: rock (1)
-  m_TagString: Untagged
+  m_Name: LargeRock
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,8 +118,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3664235205406149750}
   m_Layer: 0
-  m_Name: RockPlatform
-  m_TagString: Untagged
+  m_Name: RightRockPlatform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,8 +151,8 @@ GameObject:
   - component: {fileID: 3664235205594408957}
   - component: {fileID: 3664235205594408958}
   m_Layer: 0
-  m_Name: rock (4)
-  m_TagString: Untagged
+  m_Name: SmallRock
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
