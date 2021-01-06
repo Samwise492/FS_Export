@@ -8,7 +8,7 @@ public class ItemComponent : MonoBehaviour, IObjectDestroyer
     private Item item; //our item
     public Item Item => item;
     #endregion
-    [SerializeField] private ItemType type; // type of our item
+    [SerializeField] public ItemType type; // type of our item
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     void Start()

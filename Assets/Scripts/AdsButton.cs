@@ -12,6 +12,8 @@ public class AdsButton : MonoBehaviour, IUnityAdsListener
     private string gameId = "3879251";
 #endif
 
+    [SerializeField] GameObject potionRoot;
+    PlayerInventory playerInventory;
     Button myButton;
     public string myPlacementId = "rewardedVideo";
 
@@ -51,7 +53,14 @@ public class AdsButton : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            // Reward the user for watching the ad to completion.
+            // Getting random buff
+
+            ItemComponent itemComponent = potionRoot.GetComponentInChildren(typeof(ItemComponent)) as ItemComponent;
+            int randomPotionValue = Random.Range(0, 3); // 3 because upper border isn't included in random range
+            ItemType itemType = (ItemType)randomPotionValue;
+            itemComponent.type = itemType;
+
+            var rewardedPotion = Instantiate(potionRoot, GameObject.Find("Player").transform);
         }
         else if (showResult == ShowResult.Skipped)
         {

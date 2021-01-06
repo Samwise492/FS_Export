@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
     #region items
     private List<Item> items;
     public List<Item> Items => items;
-    #endregion
+    #endregion // items which are taking place in inventory
     [SerializeField] public Text light_piecesText;
     public BuffReciever buffReciever;
     public static PlayerInventory Instance { get; set; } // create link on PlayerInventory script
