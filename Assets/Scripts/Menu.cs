@@ -6,6 +6,7 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private InputField nameField;
     [SerializeField] private Button soundButton;
+    [SerializeField] private Image creditsImage;
     int soundState;
 
     private void Start()
@@ -17,6 +18,7 @@ public class Menu : MonoBehaviour
             soundState = PlayerPrefs.GetInt("Sound_State");
             soundButton.GetComponentInChildren<Text>().text = soundState == 1 ? "Sound (on)" : "Sound (off)";
             PlayerPrefs.SetInt("Sound_State", soundState);
+            Debug.Log(soundButton);
         }   
     }
 
@@ -27,7 +29,7 @@ public class Menu : MonoBehaviour
 
     public void OnClickPlay()
     {
-        SceneManager.LoadScene(1); // load 1st level
+        SceneManager.LoadScene(2); // load 1st level
     }
 
     public void OnClickExit()
@@ -42,7 +44,7 @@ public class Menu : MonoBehaviour
 
     public void OnClickResume()
     {
-        SceneManager.UnloadSceneAsync(2);
+        SceneManager.UnloadSceneAsync(1);
         if (Time.timeScale > 0)
             Time.timeScale = 0; // speed of time flowing
         else Time.timeScale = 1;
@@ -54,6 +56,16 @@ public class Menu : MonoBehaviour
         Debug.Log(soundState);
         soundButton.GetComponentInChildren<Text>().text = soundState == 1 ? "Sound (on)" : "Sound (off)";
         PlayerPrefs.SetInt("Sound_State", soundState);
+    }
+
+    public void OnClickCredits()
+    {
+        creditsImage.gameObject.SetActive(true);
+    }
+
+    public void OnClickCreditsExit()
+    {
+        creditsImage.gameObject.SetActive(false);
     }
 
 }

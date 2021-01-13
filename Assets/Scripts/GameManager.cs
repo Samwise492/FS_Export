@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale > 0)
             Time.timeScale = 0; // speed of time flowing
         else Time.timeScale = 1;
-        SceneManager.LoadScene(2, LoadSceneMode.Additive); // load menu
+        SceneManager.LoadScene(1, LoadSceneMode.Additive); // load menu
     }
 
     public void OnClickInventory()

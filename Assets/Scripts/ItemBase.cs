@@ -81,8 +81,8 @@ public class Item
     public BuffType Type => type;
     #endregion
     #region value
-    [SerializeField] private int value;
-    public int Value => value;
+    [SerializeField] private float value;
+    public float Value => value;
     #endregion
     #region icon
     [SerializeField] private Sprite icon;

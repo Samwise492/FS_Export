@@ -54,10 +54,10 @@ public class Player : MonoBehaviour
     private bool isReadyForShoot = true;
     private bool isJumping;
     private bool isPushing;
-    private int bonusForce;
-    private int bonusHealth;
-    private int bonusDamage;
-    private const int DefaultSpeed = 5;
+    private float bonusForce;
+    private float bonusHealth;
+    private float bonusDamage;
+    private const float DefaultJumpForce = 7;
     private Vector3 direction;
     public List<Shell> shellPool;
     [SerializeField] private Rigidbody2D rb;
@@ -234,7 +234,7 @@ public class Player : MonoBehaviour
         health.SetHealth(bonusHealth);
         if (bonusForce != 0)
         {
-            speed *= bonusForce;
+            jumpForce += bonusForce;
             StartCoroutine(ForceBoost());
         }
     }
@@ -313,7 +313,7 @@ public class Player : MonoBehaviour
     public IEnumerator ForceBoost()
     {
         yield return new WaitForSeconds(5);
-        speed = DefaultSpeed;
+        jumpForce = DefaultJumpForce;
         yield break;
     }
 }

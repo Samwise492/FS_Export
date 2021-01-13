@@ -5,8 +5,8 @@ using UnityEngine;
 public class TriggerDamage : MonoBehaviour
 {
     #region damage
-    [SerializeField] private int damage = 10;
-    public int Damage
+    [SerializeField] private float damage = 10;
+    public float Damage
     {
         get { return damage; }
         set { damage = value; }
@@ -22,7 +22,7 @@ public class TriggerDamage : MonoBehaviour
     #endregion
     [SerializeField] private bool isDestroyingAfterCollision;
     private IObjectDestroyer destroyer;
-    public const int DefaultDamage = 10;
+    public const float DefaultDamage = 10;
 
     public void Init(IObjectDestroyer destroyer)
     {

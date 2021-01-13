@@ -29,7 +29,7 @@ public class BuffEmitter : MonoBehaviour // Give buffs
 public class Buff
 {
     public BuffType type;
-    public int bonus;
+    public float bonus;
 }
 
 public enum BuffType : byte

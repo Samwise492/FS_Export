@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
         }     
     }
 
-    public void SetHealth(int bonusHealth)
+    public void SetHealth(float bonusHealth)
     {
         health += bonusHealth;
 

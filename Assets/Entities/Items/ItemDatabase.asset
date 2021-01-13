@@ -44,9 +44,9 @@ MonoBehaviour:
     value: 0
     icon: {fileID: 0}
   currentItem:
-    id: 2
-    itemName: Potion of health
-    description: Sometimes you need some support
-    type: 2
-    value: 40
-    icon: {fileID: 21300000, guid: ff3f97809332801429ddaa83a6bb0476, type: 3}
+    id: 0
+    itemName: Potion of Strength
+    description: More power!
+    type: 1
+    value: 4
+    icon: {fileID: 21300000, guid: 656068112a0f28a4db5b01f52eae0569, type: 3}

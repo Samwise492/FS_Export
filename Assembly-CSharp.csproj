@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\InventoryUIController.cs" />
     <Compile Include="Assets\Scripts\ItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemComponent.cs" />
+    <Compile Include="Assets\Scripts\LevelTeleport.cs" />
     <Compile Include="Assets\Scripts\LightIntensityVolume.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
