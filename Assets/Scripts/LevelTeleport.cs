@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelTeleport : MonoBehaviour
 {
+    [SerializeField] int level;
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
+            SceneManager.LoadScene(level, LoadSceneMode.Single);
     }
 }

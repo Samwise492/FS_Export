@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
             soundButton.GetComponentInChildren<Text>().text = soundState == 1 ? "Sound (on)" : "Sound (off)";
             PlayerPrefs.SetInt("Sound_State", soundState);
             Debug.Log(soundButton);
-        }   
+        }
     }
 
     public void OnEndEditName()

@@ -9,14 +9,6 @@ public class Shell : MonoBehaviour, IObjectDestroyer
     [SerializeField] private float lifeTime;
     [SerializeField] public TriggerDamage triggerDamage;
     private Player player;
-    #region force
-    [SerializeField] private float force;
-    public float Force
-    {
-        get { return force; }
-        set { force = value; }
-    }
-    #endregion force
 
     public void SetImpulse(Vector2 direction, float force, Player player)
     {

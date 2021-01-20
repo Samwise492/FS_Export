@@ -86,6 +86,8 @@
     <Compile Include="Assets\Scripts\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\PopUpText.cs" />
     <Compile Include="Assets\Scripts\PressedButton.cs" />
+    <Compile Include="Assets\Scripts\RangeEnemyShell.cs" />
+    <Compile Include="Assets\Scripts\RangeEnemyShooting.cs" />
     <Compile Include="Assets\Scripts\ReloadInFireButton.cs" />
     <Compile Include="Assets\Scripts\Shell.cs" />
     <Compile Include="Assets\Scripts\TilemapFading.cs" />

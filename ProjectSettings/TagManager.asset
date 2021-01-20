@@ -53,3 +53,9 @@ TagManager:
   - name: Unlit
     uniqueID: 3220107403
     locked: 0
+  - name: Background UI
+    uniqueID: 1074515283
+    locked: 0
+  - name: UI
+    uniqueID: 1877880203
+    locked: 0
