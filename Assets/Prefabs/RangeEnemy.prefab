@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1050969623579517275}
   m_Layer: 0
-  m_Name: ShellSpawPoint
+  m_Name: ShellSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,5 +256,8 @@ MonoBehaviour:
   animator: {fileID: 8411410284451845563}
   shell: {fileID: 4962988279658222250, guid: 7f6acdf367a89f84c9819128c90813ef, type: 3}
   shellSpawnPoint: {fileID: 1050969623579517275}
+  shellsCount: 3
+  reloadTime: 1
   shellPool: []
   playerLocation: {x: 0, y: 0, z: 0}
+  force: 2

@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     private float bonusDamage;
     private const float DefaultJumpForce = 7;
     private Vector3 direction;
-    public List<Shell> shellPool;
+    [HideInInspector] public List<Shell> shellPool;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private Shell shell;

@@ -8,12 +8,62 @@ public class RangeEnemyShooting : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private RangeEnemyShell shell;
     [SerializeField] private Transform shellSpawnPoint;
-    public List<RangeEnemyShell> shellPool;
+    [SerializeField] private int shellsCount;
+    [SerializeField] private int reloadTime;
+    private bool isReadyForShoot = true;
+    [HideInInspector] public List<RangeEnemyShell> shellPool;
     public Vector3 playerLocation;
+    #region force
+    [SerializeField] private float force; //shell force
+    public float Force
+    {
+        get { return force; }
+        set { force = value; }
+    }
+    #endregion force 
     void Start()
     {
-        playerLocation = player.transform.position;
+        shellPool = new List<RangeEnemyShell>();
+        for (int i = 0; i < shellsCount; i++)
+        {
+            var shellTemp = Instantiate(shell, shellSpawnPoint); // create the shell
+            shellPool.Add(shellTemp);
+            shellTemp.gameObject.SetActive(false); // turn it off in order to this object wouldn't appear when it's not necessary
+        }
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            animator.SetBool("isShooting", true);
+            
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            playerLocation = player.transform.position;
+
+            if (isReadyForShoot)
+            {
+                RangeEnemyShell prefab = GetShellFromPool();
+                prefab.FireUp(playerLocation, force, this);
+
+                StartCoroutine(Reload());
+            }
+            
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+            animator.SetBool("isShooting", false);
+    }
+
     private RangeEnemyShell GetShellFromPool()
     {
         if (shellPool.Count > 0) // if number of shells > 0
@@ -37,20 +87,12 @@ public class RangeEnemyShooting : MonoBehaviour
         shellTemp.gameObject.SetActive(false); // make shell inactive
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    public IEnumerator Reload()
     {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            animator.SetBool("isShooting", true);
-
-            RangeEnemyShell prefab = GetShellFromPool();
-            prefab.FireUp(this);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player"))
-            animator.SetBool("isShooting", false);
+        yield return new WaitForSeconds(0.05f); // how long can player shoot
+        isReadyForShoot = false;
+        yield return new WaitForSeconds(reloadTime); // reload time
+        isReadyForShoot = true;
+        yield break;
     }
 }

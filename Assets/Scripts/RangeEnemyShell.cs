@@ -6,25 +6,15 @@ public class RangeEnemyShell : MonoBehaviour, IObjectDestroyer
 {
     [SerializeField] private float lifeTime;
     [SerializeField] public TriggerDamage triggerDamage;
-    RangeEnemyShooting rangeEnemy;
-    #region force
-    [SerializeField] private float force;
-    public float Force
-    {
-        get { return force; }
-        set { force = value; }
-    }
-    #endregion force
+    private RangeEnemyShooting rangeEnemy;
 
-    public void FireUp(RangeEnemyShooting rangeEnemy)
+    public void FireUp(Vector3 destination, float force, RangeEnemyShooting rangeEnemy)
     {
         this.rangeEnemy = rangeEnemy;
         triggerDamage.Init(this);
         triggerDamage.Parent = rangeEnemy.gameObject; // set what is parent element
-        Instantiate(this, triggerDamage.Parent.transform);
-        gameObject.transform.Translate(rangeEnemy.playerLocation * force);
-        if (force < 0) // if shell flies in the left side
-            transform.rotation = Quaternion.Euler(0, 180, 0); // Quaternion allows to work with rotation of object; here we do 180 degree rotation
+        transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime * force);
+
         StartCoroutine(StartLife());
     }
     private IEnumerator StartLife() // delaying of shell's disappearance
