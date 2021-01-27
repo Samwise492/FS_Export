@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4962988279658222250}
   - component: {fileID: 1295640843304390288}
   - component: {fileID: -8861493647723364408}
+  - component: {fileID: 2978360414933142874}
   m_Layer: 0
   m_Name: RangeEnemyShell
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: bf29dc02197436347bfa3a652db8b79a, type: 3}
   m_Color: {r: 0.3478304, g: 1, b: 0, a: 1}
   m_FlipX: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 2
   triggerDamage: {fileID: 1295640843304390288}
+  rb: {fileID: 2978360414933142874}
 --- !u!114 &1295640843304390288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,3 +140,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &2978360414933142874
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8823567773700831891}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

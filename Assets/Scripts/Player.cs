@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region Singleton
+    public static Player Instance { get; set; }
+    #endregion
     #region speed
     [SerializeField] private float speed;
     public float Speed
@@ -37,13 +40,6 @@ public class Player : MonoBehaviour
         set { reloadTime = value; }
     }
     #endregion
-    #region health
-    [SerializeField] private Health health;
-    public Health Health { get { return health; } }
-    #endregion
-    #region Singleton
-    public static Player Instance { get; set; }
-    #endregion
     #region shellsCount
     private int shellsCount = 3;
     public int ShellsCount => shellsCount;
@@ -59,6 +55,11 @@ public class Player : MonoBehaviour
     private float bonusDamage;
     private const float DefaultJumpForce = 7;
     private Vector3 direction;
+
+    #region health
+    [SerializeField] private Health health;
+    public Health Health { get { return health; } }
+    #endregion
     [HideInInspector] public List<Shell> shellPool;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -248,10 +249,11 @@ public class Player : MonoBehaviour
             shellTemp.gameObject.SetActive(true); // make shell active
             shellTemp.transform.parent = null; // pull out shell from parent object (spawnpoint of all shells)
             shellTemp.transform.position = shellSpawnPoint.transform.position; // release from spawnpoint
-            return shellTemp;
+            return shellTemp;         
         }
+        
         return Instantiate
-                    (shell, shellSpawnPoint.position, Quaternion.identity); // if suddenly shell wasn't invoked from pool, we'll create it through Instantiate
+            (shell, shellSpawnPoint.position, Quaternion.identity); // if suddenly shell wasn't invoked from pool, we'll create it through Instantiate
     }
     public void ReturnShellToPool(Shell shellTemp)
     {
@@ -276,7 +278,7 @@ public class Player : MonoBehaviour
                         StartCoroutine(DamageBoost(prefab));
                     }
 
-                    // vector direction (where should he flies) and fly force
+                    // vector direction (where should it flies) and fly force
                     //(jump force * 20) + if flipX = true, shoot in the left side, otherwise in the right one
                     prefab.SetImpulse
                         (Vector2.right, spriteRenderer.flipX ? -jumpForce * shootForce : jumpForce * shootForce, this);

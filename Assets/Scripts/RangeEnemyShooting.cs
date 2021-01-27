@@ -12,7 +12,6 @@ public class RangeEnemyShooting : MonoBehaviour
     [SerializeField] private int reloadTime;
     private bool isReadyForShoot = true;
     [HideInInspector] public List<RangeEnemyShell> shellPool;
-    public Vector3 playerLocation;
     #region force
     [SerializeField] private float force; //shell force
     public float Force
@@ -45,16 +44,13 @@ public class RangeEnemyShooting : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            playerLocation = player.transform.position;
-
             if (isReadyForShoot)
             {
                 RangeEnemyShell prefab = GetShellFromPool();
-                prefab.FireUp(playerLocation, force, this);
+                prefab.FireUp(player.transform, force, this);
 
                 StartCoroutine(Reload());
             }
-            
         }
     }
 
@@ -89,7 +85,7 @@ public class RangeEnemyShooting : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        yield return new WaitForSeconds(0.05f); // how long can player shoot
+        yield return new WaitForFixedUpdate();
         isReadyForShoot = false;
         yield return new WaitForSeconds(reloadTime); // reload time
         isReadyForShoot = true;

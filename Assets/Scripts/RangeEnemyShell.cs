@@ -6,14 +6,20 @@ public class RangeEnemyShell : MonoBehaviour, IObjectDestroyer
 {
     [SerializeField] private float lifeTime;
     [SerializeField] public TriggerDamage triggerDamage;
+    [SerializeField] private Rigidbody2D rb;
     private RangeEnemyShooting rangeEnemy;
 
-    public void FireUp(Vector3 destination, float force, RangeEnemyShooting rangeEnemy)
+    public void FireUp(Transform player, float force, RangeEnemyShooting rangeEnemy)
     {
         this.rangeEnemy = rangeEnemy;
+
         triggerDamage.Init(this);
         triggerDamage.Parent = rangeEnemy.gameObject; // set what is parent element
-        transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime * force);
+
+        Vector2 direction = (Vector2)player.position - rb.position; // where our shell will go
+        direction.Normalize();
+
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
 
         StartCoroutine(StartLife());
     }
