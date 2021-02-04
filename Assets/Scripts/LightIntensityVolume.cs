@@ -14,7 +14,7 @@ public class LightIntensityVolume : MonoBehaviour
     private bool isIncreasing = true;
 
     void Update()
-    {      
+    {     
         if (isIncreasing)
         {
             lighting.intensity += intensitySpeed;

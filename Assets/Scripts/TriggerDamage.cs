@@ -33,18 +33,39 @@ public class TriggerDamage : MonoBehaviour
     {
         if (col.gameObject == parent)
             return; // exit from method. It doesn't allow to do other strings of code
-         
+
         if (GameManager.Instance.healthContainer.ContainsKey(col.gameObject))
         {
             var health = GameManager.Instance.healthContainer[col.gameObject];
             health.TakeHit(Damage);
+
+            if (isDestroyingAfterCollision)
+            {
+                // normal destroying
+                if (destroyer == null) // if destroyer doesn't exist or somehow didn't work
+                    Destroy(gameObject);
+                // unique destroying - it isn't tied to Unity methods. 
+                // such destroying is needed for various type of objects, 
+                // which can have their own destroying
+                else
+                    destroyer.Destroy(gameObject);
+            }
+                
         }
-        if (isDestroyingAfterCollision)
+        if (!GameManager.Instance.healthContainer.ContainsKey(col.gameObject))
         {
-            if (destroyer == null) // if destroyer didn't work
-                Destroy(gameObject);
-            else destroyer.Destroy(gameObject); // make destroying unique, it isn't tie to Unity methods. Such destroying is needed for various type of objects, which can have their own destroying
-        }       
+            if (isDestroyingAfterCollision)
+            {
+                // normal destroying
+                if (destroyer == null) // if destroyer doesn't exist or somehow didn't work
+                    Destroy(gameObject);
+                // unique destroying - it isn't tied to Unity methods. 
+                // such destroying is needed for various type of objects, 
+                // which can have their own destroying
+                else
+                    destroyer.Destroy(gameObject);
+            }
+        }
     }
 }
 

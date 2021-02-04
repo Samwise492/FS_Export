@@ -287,7 +287,6 @@ public class Player : MonoBehaviour
                 }
             }
     }
-
     public IEnumerator Reload()
     {
         yield return new WaitForSeconds(0.05f); // how long can player shoot

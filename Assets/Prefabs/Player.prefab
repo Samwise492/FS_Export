@@ -45,10 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.636
+  m_FalloffIntensity: 0.793
   m_Color: {r: 1, g: 0.27400643, b: 0, a: 1}
   m_Intensity: 2.2
-  m_LightVolumeOpacity: 0.039
+  m_LightVolumeOpacity: 0.282
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0.565
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.51
+  m_PointLightInnerRadius: 0.2
   m_PointLightOuterRadius: 5.61
   m_PointLightDistance: 3
   m_PointLightQuality: 1
@@ -551,10 +551,10 @@ MonoBehaviour:
   speed: 5
   jumpForce: 7
   reloadTime: 0.5
-  health: {fileID: -7109840169270053310}
-  shootForce: 7
+  shootForce: 5
   pushForce: 5
   isCheatMode: 0
+  health: {fileID: -7109840169270053310}
   shellPool: []
   rb: {fileID: 1556907836366329924}
   animator: {fileID: 1961957680}

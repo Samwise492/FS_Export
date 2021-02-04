@@ -8,10 +8,12 @@ public class RangeEnemyShell : MonoBehaviour, IObjectDestroyer
     [SerializeField] public TriggerDamage triggerDamage;
     [SerializeField] private Rigidbody2D rb;
     private RangeEnemyShooting rangeEnemy;
+    private RangeEnemyShell shell;
 
     public void FireUp(Transform player, float force, RangeEnemyShooting rangeEnemy)
     {
         this.rangeEnemy = rangeEnemy;
+        shell = this;
 
         triggerDamage.Init(this);
         triggerDamage.Parent = rangeEnemy.gameObject; // set what is parent element
@@ -31,6 +33,6 @@ public class RangeEnemyShell : MonoBehaviour, IObjectDestroyer
     }
     public void Destroy(GameObject gameObject)
     {
-
+        rangeEnemy.ReturnShellToPool(shell);
     }
 }

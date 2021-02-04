@@ -10,7 +10,7 @@ public class RangeEnemyShooting : MonoBehaviour
     [SerializeField] private Transform shellSpawnPoint;
     [SerializeField] private int shellsCount;
     [SerializeField] private int reloadTime;
-    private bool isReadyForShoot = true;
+    [SerializeField] private bool isReadyForShoot = true;
     [HideInInspector] public List<RangeEnemyShell> shellPool;
     #region force
     [SerializeField] private float force; //shell force
@@ -35,8 +35,7 @@ public class RangeEnemyShooting : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            animator.SetBool("isShooting", true);
-            
+            animator.SetBool("isShooting", true); 
         }
     }
 
@@ -60,7 +59,7 @@ public class RangeEnemyShooting : MonoBehaviour
             animator.SetBool("isShooting", false);
     }
 
-    private RangeEnemyShell GetShellFromPool()
+    public RangeEnemyShell GetShellFromPool()
     {
         if (shellPool.Count > 0) // if number of shells > 0
         {
@@ -76,11 +75,15 @@ public class RangeEnemyShooting : MonoBehaviour
     }
     public void ReturnShellToPool(RangeEnemyShell shellTemp)
     {
-        if (!shellPool.Contains(shellTemp)) // if shellTemp doesn't exist in shellPool
-            shellPool.Add(shellTemp);
-        shellTemp.transform.parent = shellSpawnPoint; // attach shell to spawnpoint (in hierarchy)
-        shellTemp.transform.position = shellSpawnPoint.transform.position; // attach shell to spawnpoint by coordinates
-        shellTemp.gameObject.SetActive(false); // make shell inactive
+        if (shellSpawnPoint != null)
+        {
+            if (!shellPool.Contains(shellTemp)) // if shellTemp doesn't exist in shellPool
+                shellPool.Add(shellTemp);
+            shellTemp.transform.parent = shellSpawnPoint; // attach shell to spawnpoint (in hierarchy)
+            shellTemp.transform.position = shellSpawnPoint.transform.position; // attach shell to spawnpoint by coordinates
+            shellTemp.gameObject.SetActive(false); // make shell inactive
+        }
+        
     }
 
     public IEnumerator Reload()

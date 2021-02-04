@@ -9,10 +9,12 @@ public class Shell : MonoBehaviour, IObjectDestroyer
     [SerializeField] private float lifeTime;
     [SerializeField] public TriggerDamage triggerDamage;
     private Player player;
+    private Shell shell;
 
     public void SetImpulse(Vector2 direction, float force, Player player)
     {
         this.player = player;
+        shell = this;
         triggerDamage.Init(this);
         triggerDamage.Parent = player.gameObject; // set what is parent element
         rb.AddForce(direction * force, ForceMode2D.Impulse); // method for shooting
@@ -30,6 +32,6 @@ public class Shell : MonoBehaviour, IObjectDestroyer
 
     public void Destroy(GameObject gameObject)
     {
-
+        
     }
 }

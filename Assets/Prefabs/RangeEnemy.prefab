@@ -107,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 71633f09adf389e4681eef5d3eafdd73, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -127,7 +127,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8337092868404493954}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -257,6 +257,7 @@ MonoBehaviour:
   shell: {fileID: 4962988279658222250, guid: 7f6acdf367a89f84c9819128c90813ef, type: 3}
   shellSpawnPoint: {fileID: 1050969623579517275}
   shellsCount: 1
-  reloadTime: 1
+  reloadTime: 2
+  isReadyForShoot: 1
   shellPool: []
   force: 4
