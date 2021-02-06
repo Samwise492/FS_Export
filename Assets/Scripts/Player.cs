@@ -282,7 +282,7 @@ public class Player : MonoBehaviour
                     //(jump force * 20) + if flipX = true, shoot in the left side, otherwise in the right one
                     prefab.SetImpulse
                         (Vector2.right, spriteRenderer.flipX ? -jumpForce * shootForce : jumpForce * shootForce, this);
-
+                    
                     StartCoroutine(Reload());
                 }
             }

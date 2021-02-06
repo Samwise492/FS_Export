@@ -20,13 +20,27 @@ public class Shell : MonoBehaviour, IObjectDestroyer
         rb.AddForce(direction * force, ForceMode2D.Impulse); // method for shooting
         if (force < 0) // if shell flies in the left side
             transform.rotation = Quaternion.Euler(0, 180, 0); // Quaternion allows to work with rotation of object; here we do 180 degree rotation
+        else
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        
         StartCoroutine(StartLife()); 
     }
 
     private IEnumerator StartLife() // delaying of shell's disappearance
     {
         yield return new WaitForSeconds(lifeTime); // set time until shell is disappeared
-        player.ReturnShellToPool(this);
+
+        gameObject.SetActive(false);
+        shell = this;
+
+        if (player.shellPool.Count == 0)
+        {
+            var uncative_shells = Resources.FindObjectsOfTypeAll<Shell>();
+            while (uncative_shells.Length != 0)
+                player.ReturnShellToPool(uncative_shells[0]);
+        }
+            
+        //player.ReturnShellToPool(this);
         yield break;
     }
 
