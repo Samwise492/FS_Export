@@ -10,7 +10,13 @@ public class Shell : MonoBehaviour, IObjectDestroyer
     [SerializeField] public TriggerDamage triggerDamage;
     private Player player;
     private Shell shell;
+    private static int defaultShellCount;
+    private int j = 0;
 
+    private void Start()
+    {
+        defaultShellCount = player.shellPool.Count;
+    }
     public void SetImpulse(Vector2 direction, float force, Player player)
     {
         this.player = player;
@@ -23,7 +29,34 @@ public class Shell : MonoBehaviour, IObjectDestroyer
         else
             transform.rotation = Quaternion.Euler(0, 0, 0);
         
-        StartCoroutine(StartLife()); 
+        StartCoroutine(StartLife());
+
+        FullReload();
+    }
+
+    void FullReload()
+    {
+        if (player.shellPool.Count == 0)
+        {
+
+            var unactive_shells = Resources.FindObjectsOfTypeAll<Shell>();
+            for (int i = unactive_shells.Length; i - 2 >= 0; i--)
+            {
+                var unactive_shell = unactive_shells[j];
+                player.ReturnShellToPool(unactive_shell);
+                j++;
+            }
+
+            if (j >= defaultShellCount)
+                j = 0;
+            /*for (int i = unactive_shells.Length; i - 1 >= 0; i--)
+            {
+                
+                player.ReturnShellToPool(unactive_shells[j]);
+                j++;
+                Debug.Log(i);
+            }*/
+        }
     }
 
     private IEnumerator StartLife() // delaying of shell's disappearance
@@ -35,9 +68,24 @@ public class Shell : MonoBehaviour, IObjectDestroyer
 
         if (player.shellPool.Count == 0)
         {
-            var uncative_shells = Resources.FindObjectsOfTypeAll<Shell>();
-            while (uncative_shells.Length != 0)
-                player.ReturnShellToPool(uncative_shells[0]);
+
+            var unactive_shells = Resources.FindObjectsOfTypeAll<Shell>();
+            /*if (unactive_shells.Length != defaultShellCount)
+                if (unactive_shells.Length > 0)
+                {
+                    var unactive_shell = unactive_shells[j];
+                    player.ReturnShellToPool(unactive_shell);
+                    j++;
+                }*/
+            Debug.Log(unactive_shells.Length);
+
+            /*for (int i = unactive_shells.Length; i - 1 >= 0; i--)
+            {
+                
+                player.ReturnShellToPool(unactive_shells[j]);
+                j++;
+                Debug.Log(i);
+            }*/
         }
             
         //player.ReturnShellToPool(this);
