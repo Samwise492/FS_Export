@@ -265,7 +265,7 @@ public class Player : MonoBehaviour
     }
     void CheckShoot()
     {
-        if (isReadyForShoot)
+        if (isReadyForShoot && shellPool.Count > 0)
             {
                 if (!isJumping && groundDetection.IsGrounded)
                 {
