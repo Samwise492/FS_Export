@@ -44,7 +44,7 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
+  - name: FarBackground
     uniqueID: 3892823231
     locked: 0
   - name: Default
