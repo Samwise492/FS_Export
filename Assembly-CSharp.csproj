@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\ItemComponent.cs" />
     <Compile Include="Assets\Scripts\ItemDatabaseEditor.cs" />
     <Compile Include="Assets\Scripts\LevelTeleport.cs" />
+    <Compile Include="Assets\Scripts\LightIncrease.cs" />
     <Compile Include="Assets\Scripts\LightIntensityVolume.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\Scripts\TilemapFading.cs" />
     <Compile Include="Assets\Scripts\TriggerDamage.cs" />
     <Compile Include="Assets\Scripts\UICharacterController.cs" />
+    <None Include="Assets\Resources\Shaders\002.shader" />
     <None Include="Assets\UnityAds\link.xml" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
