@@ -26,7 +26,7 @@ public class LightIncrease : MonoBehaviour
                 player_light.intensity -= escalationSpeed;
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnCollisionStay(Collision col)
     {
         if (col.gameObject.CompareTag("FX"))
             increase = true;
@@ -36,6 +36,6 @@ public class LightIncrease : MonoBehaviour
     private void OnCollisionExit(Collision col)
     {
         if (col.gameObject.CompareTag("FX"))
-            //increase = false;
+            increase = false;
     }
 }
