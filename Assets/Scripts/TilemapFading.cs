@@ -43,7 +43,7 @@ public class TilemapFading : MonoBehaviour
         {
             if (fadeValue < 1)
                 fadeValue += 0.025f;
-            tilemap.color = new Color(standartColor.r, standartColor.r, standartColor.b, fadeValue);
+            tilemap.color = new Color(standartColor.r, standartColor.g, standartColor.b, fadeValue);
         }
     }
 }
