@@ -22,7 +22,6 @@ public class Health : MonoBehaviour
     float fade = 1f;
     bool flag = false; // should object be faded
     [SerializeField] bool isPlayer;
-    private bool isHitting;
 
     private void Start()
     {

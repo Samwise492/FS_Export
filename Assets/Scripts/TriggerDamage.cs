@@ -32,12 +32,16 @@ public class TriggerDamage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject == parent)
-            return; // exit from method. It doesn't allow to do other strings of code
+            return; // exit from method. It doesn't allow to do other lines of code
+
+        if (gameObject.tag == col.gameObject.tag)
+            return;
 
         if (GameManager.Instance.healthContainer.ContainsKey(col.gameObject))
         {
             var health = GameManager.Instance.healthContainer[col.gameObject];
-            health.TakeHit(Damage);
+            if (gameObject.tag != col.gameObject.tag)
+                health.TakeHit(Damage);
 
             if (isDestroyingAfterCollision)
             {

@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\LightIncrease.cs" />
     <Compile Include="Assets\Scripts\LightIntensityVolume.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
+    <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerInventory.cs" />
     <Compile Include="Assets\Scripts\PopUpText.cs" />
