@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\ItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemComponent.cs" />
     <Compile Include="Assets\Scripts\ItemDatabaseEditor.cs" />
+    <Compile Include="Assets\Scripts\KillOnTriggerCollision.cs" />
     <Compile Include="Assets\Scripts\LevelTeleport.cs" />
     <Compile Include="Assets\Scripts\LightIncrease.cs" />
     <Compile Include="Assets\Scripts\LightIntensityVolume.cs" />
@@ -762,7 +763,16 @@
       <HintPath>C:/Users/Samwise/PixelProject/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
+      <Project>{43613858-7D7C-FC45-DB86-DDD0F6F6D6B5}</Project>
+      <Name>Unity.2D.Tilemap.Extras.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
+      <Project>{CB9CD26A-FEB7-831E-E4B8-6860726C0851}</Project>
+      <Name>Unity.2D.Tilemap.Extras</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
