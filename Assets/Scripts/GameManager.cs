@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<GameObject, ItemComponent> itemsContainer;
     public ItemBase itemDataBase;
     [HideInInspector] public PlayerInventory inventory;
+    [HideInInspector] public Shop shop;
 
     private void Awake()
     {

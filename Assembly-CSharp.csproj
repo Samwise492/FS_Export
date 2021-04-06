@@ -94,7 +94,10 @@
     <Compile Include="Assets\Scripts\RangeEnemyShooting.cs" />
     <Compile Include="Assets\Scripts\ReloadInFireButton.cs" />
     <Compile Include="Assets\Scripts\Shell.cs" />
+    <Compile Include="Assets\Scripts\Shop.cs" />
+    <Compile Include="Assets\Scripts\ShopUIController.cs" />
     <Compile Include="Assets\Scripts\TilemapFading.cs" />
+    <Compile Include="Assets\Scripts\Trader.cs" />
     <Compile Include="Assets\Scripts\TriggerDamage.cs" />
     <Compile Include="Assets\Scripts\UICharacterController.cs" />
     <None Include="Assets\Resources\Shaders\002.shader" />

@@ -27,7 +27,7 @@ public class ItemBase : ScriptableObject // database of our existing buff items
         if ((items == null) && (currentItem == null)) // if it's true, then we're about to delete unexisting dictionary or an element
             return;                                   // we won't do it, we'll just leave out of our method
 
-        items.Remove(currentItem); // is everything is ok, and our element do exist, then we delete it
+        items.Remove(currentItem); // is everything is ok, and our element does exist, then we delete it
 
         if (items.Count > 0) // are there elements in our dictionary?
             currentItem = items[0]; // if yes, then element which we want to delete becomes to equal like zero element of the dictionary

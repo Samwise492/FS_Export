@@ -281,8 +281,8 @@ Camera:
   m_GameObject: {fileID: 1830928742}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.9339623, g: 0.86687064, b: 0.5506853, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -641,6 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   light_piecesCount: 0
   light_piecesText: {fileID: 0}
+  inventoryUIController: {fileID: 0}
   buffReciever: {fileID: 4001477695899016955}
 --- !u!114 &4001477695899016955
 MonoBehaviour:

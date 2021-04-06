@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class InventoryUIController : MonoBehaviour
 {
-    [SerializeField] Cell[] cells;
-    [SerializeField] private int cellCount;
+    [SerializeField, HideInInspector] public Cell[] cells;
+    [SerializeField] public int cellCount;
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Transform rootParent;
-    void Init()
+
+    virtual public void Init()
     {
         cells = new Cell[cellCount];
         for (int i = 0; i < cellCount; i++)
@@ -26,7 +27,7 @@ public class InventoryUIController : MonoBehaviour
         RefreshInventory();      
     }
 
-    public void RefreshInventory()
+    virtual public void RefreshInventory()
     {
         var inventory = GameManager.Instance.inventory; // initialize inventory
         foreach (var cell in cells)
