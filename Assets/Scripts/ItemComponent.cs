@@ -15,7 +15,7 @@ public class ItemComponent : MonoBehaviour, IObjectDestroyer
     {
         item = GameManager.Instance.itemDataBase.GetItemOfID((int)type);
         spriteRenderer.sprite = item.Icon;
-        GameManager.Instance.itemsContainer.Add(gameObject, this); // we give our gameObject and his script  
+        GameManager.Instance.itemsContainer.Add(gameObject, this); // we give away our gameObject and his script  
     }
 
     public void Destroy(GameObject gameObject)

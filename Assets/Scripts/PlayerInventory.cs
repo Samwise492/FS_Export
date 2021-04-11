@@ -39,7 +39,6 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-
         // Add item to inventory
         if (GameManager.Instance.itemsContainer.ContainsKey(col.gameObject)) // if container is consisted of items, which have the same type as type of object which we collected
         {
