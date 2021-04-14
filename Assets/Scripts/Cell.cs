@@ -38,4 +38,26 @@ public class Cell : MonoBehaviour // Cell of inventory
         if (OnRefreshCell != null)
             OnRefreshCell();
     }
+
+    public void OnClickBuy()
+    {
+        if (item == null)
+            return;
+        
+        var itemPrice = Int32.Parse(gameObject.GetComponentInChildren<Text>().text);
+        var funds = Int32.Parse(PlayerInventory.Instance.light_piecesText.text);
+
+        if (funds >= itemPrice)
+        {
+            funds -= itemPrice;
+
+            GameManager.Instance.inventory.Items.Add(item);
+            GameManager.Instance.shop.traderIconAnimator.SetTrigger("isItemBought");
+        }
+        else
+        {
+            GameManager.Instance.shop.traderIconAnimator.SetTrigger("isDeclined");
+        }
+        
+    }
 }

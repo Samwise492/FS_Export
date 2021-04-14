@@ -5,14 +5,18 @@ using UnityEngine;
 public class Trader : MonoBehaviour
 {
     [SerializeField] private GameObject shopPanel;
-
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Animator animator;
+    
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        
+        animator.SetTrigger("Greetings");
     }
 
-    // Update is called once per frame
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        animator.SetTrigger("Greetings");
+    }
+
     void Update()
     {
 #if UNITY_EDITOR
@@ -21,19 +25,13 @@ public class Trader : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
-            if (hit.collider != null && hit.transform.gameObject.CompareTag("Trader"))
-            {
-                if (Time.timeScale > 0)
+            if (hit.collider != null && hit.collider.isTrigger == false)
+                if (hit.transform.gameObject.CompareTag("Trader"))
                 {
                     shopPanel.gameObject.SetActive(true);
-                    Time.timeScale = 0;
                 }
-                else
-                {
-                    shopPanel.gameObject.SetActive(false);
-                    Time.timeScale = 1;
-                }
-            }
+           
+
         }
 #endif
         if (Input.touchCount > 0)
@@ -46,18 +44,14 @@ public class Trader : MonoBehaviour
 
                 if (hit.collider != null && hit.transform.gameObject.CompareTag("Trader"))
                 {
-                    if (Time.timeScale > 0)
-                    {
-                        shopPanel.gameObject.SetActive(true);
-                        Time.timeScale = 0;
-                    }
-                    else
-                    {
-                        shopPanel.gameObject.SetActive(false);
-                        Time.timeScale = 1;
-                    }
+                    shopPanel.gameObject.SetActive(true);
                 }
             }
         }
+    }
+
+    public void OnPressedExit()
+    {
+        shopPanel.gameObject.SetActive(false);
     }
 }
