@@ -44,12 +44,12 @@ public class Cell : MonoBehaviour // Cell of inventory
         if (item == null)
             return;
         
-        var itemPrice = Int32.Parse(gameObject.GetComponentInChildren<Text>().text);
-        var funds = Int32.Parse(PlayerInventory.Instance.light_piecesText.text);
+        var itemPrice = int.Parse(gameObject.GetComponentInChildren<Text>().text);
 
-        if (funds >= itemPrice)
+        if (PlayerInventory.Instance.Light_piecesCount >= itemPrice)
         {
-            funds -= itemPrice;
+            PlayerInventory.Instance.Light_piecesCount -= itemPrice;
+            PlayerInventory.Instance.light_piecesText.text = PlayerInventory.Instance.Light_piecesCount.ToString();
 
             GameManager.Instance.inventory.Items.Add(item);
             GameManager.Instance.shop.traderIconAnimator.SetTrigger("isItemBought");

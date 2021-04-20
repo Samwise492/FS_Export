@@ -21,9 +21,19 @@ public class UICharacterController : MonoBehaviour
     [SerializeField] private Button jumpButton;
     public Button JumpButton => jumpButton;
     #endregion
+    #region shadow bomb button
+    [SerializeField] private Button shadowBombButton;
+    public Button ShadowBombButton => jumpButton;
+    #endregion
 
     void Start()
     {
         Player.Instance.InitUIController(this);
+    }
+
+    private void Update()
+    {
+        if (Player.Instance.BonusShadowBomb == 1)
+            shadowBombButton.gameObject.SetActive(true);
     }
 }

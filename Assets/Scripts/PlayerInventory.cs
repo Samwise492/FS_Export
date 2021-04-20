@@ -55,4 +55,10 @@ public class PlayerInventory : MonoBehaviour
             }  
         }
     }
+
+    public void AddMoney()
+    {
+        light_piecesCount += 100;
+        light_piecesText.text = light_piecesCount.ToString();
+    }
 }

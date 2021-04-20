@@ -50,10 +50,16 @@ public class Player : MonoBehaviour
     private bool isReadyForShoot = true;
     private bool isJumping;
     private bool isPushing;
+
     private float bonusForce;
     private float bonusHealth;
     private float bonusDamage;
     private float bonusShield;
+    private float bonusResurrection;
+    public float BonusRessurection => bonusResurrection;
+    private float bonusShadowBomb;
+    public float BonusShadowBomb => bonusShadowBomb;
+
     private const float DefaultJumpForce = 7;
     private Vector3 direction;
 
@@ -117,11 +123,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && groundDetection.IsGrounded)
             Jump();
 #endif
-        Debug.Log("bonus usually is " + bonusShield);
-        if (bonusShield == 1) // if bonusShield exists
-        {
-            StartCoroutine(AddHealth());
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D col) 
@@ -142,6 +143,23 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Enemy"))
         {
+            if (bonusShield == 1) // if bonusShield exists
+            {
+                System.Random Randomiser = new System.Random();
+                int randomNumber = Randomiser.Next(0, 4);
+                if (randomNumber == bonusShield)
+                    health.CurrentHealth += 30;
+            }
+
+            if (bonusResurrection == 1)
+            {
+                if (Health.CurrentHealth <= 0)
+                {
+                    Health.CurrentHealth = 100;
+                    bonusResurrection = 0; //pomenyat tag
+                }    
+            }
+
             var pushVector = (transform.position.x - col.gameObject.transform.position.x) > 0 ? Vector3.right : Vector3.left;
             rb.AddForce(pushVector * pushForce, ForceMode2D.Impulse);
             rb.AddForce(Vector3.up * pushForce, ForceMode2D.Impulse);
@@ -167,6 +185,7 @@ public class Player : MonoBehaviour
         controller = uiController;
         controller.JumpButton.onClick.AddListener(Jump); // add method without brackets because we give link to this method, but don't invoke it 
         controller.FireButton.onClick.AddListener(CheckShoot);
+        controller.ShadowBombButton.onClick.AddListener(ShadowFlame);
     }
 
     public void Death()
@@ -229,6 +248,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void ShadowFlame()
+    {
+        Debug.Log("shadow flame");
+        StartCoroutine(ShadowBomb());
+    }
+
     private void BuffHandler()
     {
         var forceBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Force); // find variable which type == Force. If there is nothing it'll equal null
@@ -240,6 +265,10 @@ public class Player : MonoBehaviour
 
         var shieldBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Shield);
         bonusShield = shieldBuff == null ? 0 : shieldBuff.bonus;
+        var resurrectionBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Resurrection);
+        bonusResurrection = resurrectionBuff == null ? 0 : resurrectionBuff.bonus;
+        var shadowBombBuff = buffReciever.Buffs.Find(t => t.type == BuffType.ShadowBomb);
+        bonusShadowBomb = shadowBombBuff == null ? 0 : shadowBombBuff.bonus;
 
         health.SetHealth(bonusHealth);
         if (bonusForce != 0)
@@ -327,16 +356,12 @@ public class Player : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator AddHealth()
+    public IEnumerator ShadowBomb()
     {
-        System.Random Randomiser = new System.Random();
-        int randomNumber = Randomiser.Next(0, 4);
-        if (randomNumber == bonusShield)
-            health.CurrentHealth += 30;
-
-        Debug.Log(randomNumber);
-
-        yield return new WaitForSeconds(1);
+        Debug.Log("jesus, it works");
+        transform.gameObject.tag = "Untagged";
+        yield return new WaitForSeconds(3);
+        transform.gameObject.tag = "Player";
         yield break;
     }
 }

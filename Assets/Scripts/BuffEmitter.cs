@@ -34,5 +34,5 @@ public class Buff
 
 public enum BuffType : byte
 {
-    Damage, Force, Health, Shield, Ressurect, ShadowBomb
+    Damage, Force, Health, Shield, Resurrection, ShadowBomb
 }

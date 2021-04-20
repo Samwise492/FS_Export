@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
     {
         health -= damage;
         
-        if (health <= 0)
+        if (health <= 0 && Player.Instance.BonusRessurection != 1)
         {
             flag = true;
             Update();
