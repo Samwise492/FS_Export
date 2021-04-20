@@ -31,22 +31,28 @@ MonoBehaviour:
     type: 2
     value: 40
     icon: {fileID: 21300000, guid: ff3f97809332801429ddaa83a6bb0476, type: 3}
-  - id: 0
-    itemName: 
-    description: 
-    type: 0
-    value: 0
-    icon: {fileID: 0}
-  - id: 0
-    itemName: 
-    description: 
-    type: 0
-    value: 0
-    icon: {fileID: 0}
+  - id: 3
+    itemName: Shield
+    description: Randomly gets +30 hp to the player
+    type: 3
+    value: 1
+    icon: {fileID: 21300000, guid: a739380afe668974f9ca3c7eb6e80183, type: 3}
+  - id: 4
+    itemName: Resurrection
+    description: Resurrects the player once
+    type: 4
+    value: 1
+    icon: {fileID: 21300000, guid: 37731d93875510e4d8d980157d4a8615, type: 3}
+  - id: 5
+    itemName: Shadow bomb
+    description: When it's used enemies can't attack the player
+    type: 5
+    value: 1
+    icon: {fileID: 21300000, guid: 65ae002ad8e6a214fa2597dcda330eed, type: 3}
   currentItem:
-    id: 0
-    itemName: Potion of Strength
-    description: More power!
-    type: 1
-    value: 4
-    icon: {fileID: 21300000, guid: 656068112a0f28a4db5b01f52eae0569, type: 3}
+    id: 3
+    itemName: Shield
+    description: Randomly gets +30 hp to the player
+    type: 3
+    value: 1
+    icon: {fileID: 21300000, guid: a739380afe668974f9ca3c7eb6e80183, type: 3}

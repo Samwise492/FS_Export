@@ -28,5 +28,9 @@ public enum ItemType
 {
     ForcePotion = 0, 
     DamagePotion = 1, 
-    HealthPotion = 2
+    HealthPotion = 2,
+
+    Shield = 3,
+    Resurrection = 4,
+    ShadowBomb = 5
 }

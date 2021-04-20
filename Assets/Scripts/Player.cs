@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     private float bonusForce;
     private float bonusHealth;
     private float bonusDamage;
+    private float bonusShield;
     private const float DefaultJumpForce = 7;
     private Vector3 direction;
 
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isPushing", isPushing);
 
         // Immortality
-        if (isCheatMode) 
+        if (isCheatMode)
             Health.CurrentHealth = 1000;
         else
             return;
@@ -116,6 +117,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && groundDetection.IsGrounded)
             Jump();
 #endif
+        Debug.Log("bonus usually is " + bonusShield);
+        if (bonusShield == 1) // if bonusShield exists
+        {
+            StartCoroutine(AddHealth());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col) 
@@ -232,6 +238,9 @@ public class Player : MonoBehaviour
         bonusDamage = damageBuff == null ? 0 : damageBuff.bonus;
         bonusHealth = healthBuff == null ? 0 : healthBuff.bonus;
 
+        var shieldBuff = buffReciever.Buffs.Find(t => t.type == BuffType.Shield);
+        bonusShield = shieldBuff == null ? 0 : shieldBuff.bonus;
+
         health.SetHealth(bonusHealth);
         if (bonusForce != 0)
         {
@@ -315,6 +324,19 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         jumpForce = DefaultJumpForce;
+        yield break;
+    }
+
+    public IEnumerator AddHealth()
+    {
+        System.Random Randomiser = new System.Random();
+        int randomNumber = Randomiser.Next(0, 4);
+        if (randomNumber == bonusShield)
+            health.CurrentHealth += 30;
+
+        Debug.Log(randomNumber);
+
+        yield return new WaitForSeconds(1);
         yield break;
     }
 }
