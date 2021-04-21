@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
 
     private const float DefaultJumpForce = 7;
     private Vector3 direction;
+    private Color standartColor;
 
     #region health
     [SerializeField] private Health health;
@@ -178,6 +179,8 @@ public class Player : MonoBehaviour
         }
 
         buffReciever.OnBuffsChanged += BuffHandler;
+
+        standartColor = spriteRenderer.color;
     }
 
     public void InitUIController(UICharacterController uiController)
@@ -250,7 +253,6 @@ public class Player : MonoBehaviour
 
     private void ShadowFlame()
     {
-        Debug.Log("shadow flame");
         StartCoroutine(ShadowBomb());
     }
 
@@ -275,6 +277,12 @@ public class Player : MonoBehaviour
         {
             jumpForce += bonusForce;
             StartCoroutine(ForceBoost());
+        }
+
+        if (bonusShadowBomb != 0)
+        {
+            controller.ShadowBombButton.gameObject.SetActive(true);
+            controller.ShadowBombBackground.gameObject.SetActive(true);
         }
     }
 
@@ -358,10 +366,17 @@ public class Player : MonoBehaviour
 
     public IEnumerator ShadowBomb()
     {
-        Debug.Log("jesus, it works");
+        spriteRenderer.color = new Color(168, 0, 181, 255); //A800B5
         transform.gameObject.tag = "Untagged";
+        
         yield return new WaitForSeconds(3);
+
+        spriteRenderer.color = standartColor;
         transform.gameObject.tag = "Player";
+
+        controller.ShadowBombButton.gameObject.SetActive(false);
+        yield return new WaitForSeconds(10);
+        controller.ShadowBombButton.gameObject.SetActive(true);
         yield break;
     }
 }

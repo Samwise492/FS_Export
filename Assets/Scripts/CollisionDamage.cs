@@ -37,7 +37,8 @@ public class CollisionDamage : MonoBehaviour
             animator.SetFloat("Direction", Mathf.Abs(direction));
         }
 
-        DealDamage();
+        if (col.gameObject.tag == "Player")
+            DealDamage();
     }
 
     public void DealDamage() 

@@ -23,7 +23,11 @@ public class UICharacterController : MonoBehaviour
     #endregion
     #region shadow bomb button
     [SerializeField] private Button shadowBombButton;
-    public Button ShadowBombButton => jumpButton;
+    public Button ShadowBombButton => shadowBombButton;
+    #endregion
+    #region shadow bomb background
+    [SerializeField] private Image shadowBombBackground;
+    public Image ShadowBombBackground => shadowBombBackground;
     #endregion
 
     void Start()
@@ -33,7 +37,11 @@ public class UICharacterController : MonoBehaviour
 
     private void Update()
     {
-        if (Player.Instance.BonusShadowBomb == 1)
+        /*if (Player.Instance.BonusShadowBomb == 1)
+        {
             shadowBombButton.gameObject.SetActive(true);
+            shadowBombBackground.gameObject.SetActive(true);
+        }*/
+            
     }
 }
